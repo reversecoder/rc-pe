@@ -1,0 +1,8 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+
+    package="ja.burhanrashid52.photoeditor">
+
+    <application
+        android:supportsRtl="true"/>
+
+</manifest>

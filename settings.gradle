@@ -1,0 +1,5 @@
+include ':app',
+        ':library:photoeditor',
+        ':library:colorpickerview',
+        ':library:pdialog'
+//Linese
