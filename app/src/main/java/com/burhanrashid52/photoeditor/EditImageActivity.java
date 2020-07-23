@@ -483,6 +483,12 @@ public class EditImageActivity extends BaseActivity implements OnPhotoEditorList
                 mTxtCurrentTool.setText(R.string.label_filter);
                 showFilter(true);
                 break;
+            case SHADE:
+                mTxtCurrentTool.setText(R.string.label_shade);
+                break;
+            case WATERMARK:
+                mTxtCurrentTool.setText(R.string.label_watermark);
+                break;
             case EMOJI:
                 mEmojiBSFragment.show(getSupportFragmentManager(), mEmojiBSFragment.getTag());
                 break;

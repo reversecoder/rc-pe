@@ -1,17 +1,34 @@
 package com.burhanrashid52.photoeditor.tools;
 
-/**
- * @author <a href="https://github.com/burhanrashid52">Burhanuddin Rashid</a>
- * @version 0.1.2
- * @since 5/23/2018
- */
 public enum ToolType {
-    BACKGROUND,
-    CROP,
-    BRUSH,
-    TEXT,
-    ERASER,
-    FILTER,
-    EMOJI,
-    STICKER
+
+    BACKGROUND("Background"),
+    CROP("Crop"),
+    BRUSH("Brush"),
+    TEXT("Text"),
+    ERASER("Eraser"),
+    FILTER("Filter"),
+    SHADE("Shade"),
+    WATERMARK("Watermark"),
+    EMOJI("Emoji"),
+    STICKER("Sticker");
+
+    private String toolName;
+
+    ToolType(String toolName) {
+        this.toolName = toolName;
+    }
+
+    public String getToolName() {
+        return this.toolName;
+    }
+
+    public static ToolType getToolType(String value) {
+        for (ToolType toolType : ToolType.values()) {
+            if (toolType.getToolName().equalsIgnoreCase(value)) {
+                return toolType;
+            }
+        }
+        return null;
+    }
 }
