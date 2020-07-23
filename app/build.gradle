@@ -27,6 +27,7 @@ dependencies {
     implementation project(':library:photoeditor')
     implementation project(':library:colorpickerview')
     implementation project(':library:pdialog')
+    implementation project(':library:cropiwa')
     implementation 'androidx.cardview:cardview:1.0.0'
     testImplementation 'junit:junit:4.13'
     androidTestImplementation 'androidx.test:runner:1.2.0'
