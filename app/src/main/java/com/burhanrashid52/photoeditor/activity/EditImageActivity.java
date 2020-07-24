@@ -1,4 +1,4 @@
-package com.burhanrashid52.photoeditor;
+package com.burhanrashid52.photoeditor.activity;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
@@ -31,6 +31,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.transition.ChangeBounds;
 import androidx.transition.TransitionManager;
 
+import com.burhanrashid52.photoeditor.BubbleFlag;
+import com.burhanrashid52.photoeditor.EmojiBSFragment;
+import com.burhanrashid52.photoeditor.PropertiesBSFragment;
+import com.burhanrashid52.photoeditor.R;
+import com.burhanrashid52.photoeditor.StickerBSFragment;
+import com.burhanrashid52.photoeditor.TextEditorDialogFragment;
 import com.burhanrashid52.photoeditor.base.BaseActivity;
 import com.burhanrashid52.photoeditor.filters.FilterListener;
 import com.burhanrashid52.photoeditor.filters.FilterViewAdapter;
@@ -42,7 +48,6 @@ import com.skydoves.colorpickerview.ColorEnvelope;
 import com.skydoves.colorpickerview.ColorPickerDialog;
 import com.skydoves.colorpickerview.ColorPickerView;
 import com.skydoves.colorpickerview.listeners.ColorEnvelopeListener;
-import com.steelkiwi.cropiwa.CropIwaView;
 
 import java.io.File;
 import java.io.IOException;
@@ -57,7 +62,6 @@ import ja.burhanrashid52.photoeditor.listener.OnPhotoEditorListener;
 import ja.burhanrashid52.photoeditor.util.BitmapManager;
 import ja.burhanrashid52.photoeditor.util.SaveSettings;
 import ja.burhanrashid52.photoeditor.util.TextStyleBuilder;
-import ja.burhanrashid52.photoeditor.view.FilterImageView;
 import ja.burhanrashid52.photoeditor.view.PhotoEditorView;
 
 public class EditImageActivity extends BaseActivity implements OnPhotoEditorListener,
@@ -70,6 +74,8 @@ public class EditImageActivity extends BaseActivity implements OnPhotoEditorList
     public static final String FILE_PROVIDER_AUTHORITY = "com.burhanrashid52.photoeditor.fileprovider";
     private static final int CAMERA_REQUEST = 52;
     private static final int PICK_REQUEST = 53;
+    private static final int CROP_REQUEST = 42;
+    public static final String IMAGE_URI = "IMAGE_URI";
     PhotoEditor mPhotoEditor;
     private PhotoEditorView mPhotoEditorView;
     private PropertiesBSFragment mPropertiesBSFragment;
@@ -84,7 +90,7 @@ public class EditImageActivity extends BaseActivity implements OnPhotoEditorList
     private ConstraintSet mConstraintSet = new ConstraintSet();
     private boolean mIsFilterVisible;
     private PickerType mPickerType;
-    private CropIwaView cropIwaView;
+    private Uri imageUri;
 
     @Nullable
     @VisibleForTesting
@@ -193,8 +199,6 @@ public class EditImageActivity extends BaseActivity implements OnPhotoEditorList
 
         imgShare = findViewById(R.id.imgShare);
         imgShare.setOnClickListener(this);
-
-        cropIwaView = findViewById(R.id.cropiwaview);
     }
 
     @Override
@@ -364,6 +368,7 @@ public class EditImageActivity extends BaseActivity implements OnPhotoEditorList
         if (resultCode == RESULT_OK) {
             switch (requestCode) {
                 case CAMERA_REQUEST:
+                    imageUri = data.getData();
                     mPhotoEditor.clearAllViews(true);
                     Bitmap photo = (Bitmap) data.getExtras().get("data");
                     mPhotoEditorView.getSource().setImageBitmap(photo);
@@ -372,6 +377,7 @@ public class EditImageActivity extends BaseActivity implements OnPhotoEditorList
                     break;
                 case PICK_REQUEST:
                     try {
+                        imageUri = data.getData();
                         mPhotoEditor.clearAllViews(true);
                         Uri uri = data.getData();
                         Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
@@ -460,19 +466,20 @@ public class EditImageActivity extends BaseActivity implements OnPhotoEditorList
             Toast.makeText(EditImageActivity.this, "Please pick image first", Toast.LENGTH_SHORT).show();
             return;
         }
-        cropIwaView.setVisibility(View.GONE);
         switch (toolType) {
             case BACKGROUND:
                 openBackgroundSelectorDialog();
                 mTxtCurrentTool.setText(R.string.label_background);
                 break;
             case CROP:
-                if (!mPhotoEditor.isCacheEmpty()) {
-                    Toast.makeText(EditImageActivity.this, "Please save image before cropping", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-                cropIwaView.setVisibility(View.VISIBLE);
-                mTxtCurrentTool.setText(R.string.label_crop);
+//                if (!mPhotoEditor.isCacheEmpty()) {
+//                    Toast.makeText(EditImageActivity.this, "Please save image before cropping", Toast.LENGTH_SHORT).show();
+//                    return;
+//                }
+//                mTxtCurrentTool.setText(R.string.label_crop);
+                Intent intentCrop = new Intent(EditImageActivity.this, CropActivity.class);
+                intentCrop.putExtra(IMAGE_URI, imageUri);
+                startActivityForResult(intentCrop, CROP_REQUEST);
                 break;
             case BRUSH:
                 mPhotoEditor.setBrushDrawingMode(true);
