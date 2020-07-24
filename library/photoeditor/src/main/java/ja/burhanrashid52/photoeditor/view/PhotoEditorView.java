@@ -193,30 +193,4 @@ public class PhotoEditorView extends RelativeLayout {
 
         mImgSource.setImageBitmap(dstBitmap);
     }
-
-    public void setViewShadow(final int colorValue) {
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                // Create color state
-                ColorStateList themeColorStateList = new ColorStateList(
-                        new int[][]{
-                                new int[]{android.R.attr.state_pressed},
-                                new int[]{android.R.attr.state_enabled},
-                                new int[]{android.R.attr.state_focused, android.R.attr.state_pressed},
-                                new int[]{-android.R.attr.state_enabled},
-                                new int[]{} // this should be empty to make default color as we want
-                        },
-                        new int[]{
-                                colorValue,
-                                colorValue,
-                                colorValue,
-                                colorValue,
-                                colorValue
-                        }
-                );
-                mImgSource.setBackgroundTintList(themeColorStateList);
-            }
-        }, 10);
-    }
 }

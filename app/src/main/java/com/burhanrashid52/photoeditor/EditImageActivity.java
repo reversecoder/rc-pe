@@ -25,7 +25,6 @@ import androidx.annotation.VisibleForTesting;
 import androidx.appcompat.app.AlertDialog;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.constraintlayout.widget.ConstraintSet;
-import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -51,14 +50,15 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import cn.ymex.popup.dialog.PopupDialog;
-import ja.burhanrashid52.photoeditor.util.BitmapManager;
-import ja.burhanrashid52.photoeditor.listener.OnPhotoEditorListener;
 import ja.burhanrashid52.photoeditor.PhotoEditor;
-import ja.burhanrashid52.photoeditor.view.PhotoEditorView;
 import ja.burhanrashid52.photoeditor.enumeration.PhotoFilter;
+import ja.burhanrashid52.photoeditor.enumeration.ViewType;
+import ja.burhanrashid52.photoeditor.listener.OnPhotoEditorListener;
+import ja.burhanrashid52.photoeditor.util.BitmapManager;
 import ja.burhanrashid52.photoeditor.util.SaveSettings;
 import ja.burhanrashid52.photoeditor.util.TextStyleBuilder;
-import ja.burhanrashid52.photoeditor.enumeration.ViewType;
+import ja.burhanrashid52.photoeditor.view.FilterImageView;
+import ja.burhanrashid52.photoeditor.view.PhotoEditorView;
 
 public class EditImageActivity extends BaseActivity implements OnPhotoEditorListener,
         View.OnClickListener,
@@ -364,7 +364,7 @@ public class EditImageActivity extends BaseActivity implements OnPhotoEditorList
         if (resultCode == RESULT_OK) {
             switch (requestCode) {
                 case CAMERA_REQUEST:
-                    mPhotoEditor.clearAllViews();
+                    mPhotoEditor.clearAllViews(true);
                     Bitmap photo = (Bitmap) data.getExtras().get("data");
                     mPhotoEditorView.getSource().setImageBitmap(photo);
                     mPickerType = PickerType.CAMERA;
@@ -372,7 +372,7 @@ public class EditImageActivity extends BaseActivity implements OnPhotoEditorList
                     break;
                 case PICK_REQUEST:
                     try {
-                        mPhotoEditor.clearAllViews();
+                        mPhotoEditor.clearAllViews(true);
                         Uri uri = data.getData();
                         Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
                         mPhotoEditorView.getSource().setImageBitmap(bitmap);
@@ -505,9 +505,11 @@ public class EditImageActivity extends BaseActivity implements OnPhotoEditorList
                 mTxtCurrentTool.setText(R.string.label_shade);
                 break;
             case WATERMARK:
-                mTxtCurrentTool.setText(R.string.label_watermark);
+                Toast.makeText(EditImageActivity.this, "Coming soon", Toast.LENGTH_SHORT).show();
+//                mTxtCurrentTool.setText(R.string.label_watermark);
             case SEAL:
-                mTxtCurrentTool.setText(R.string.label_seal);
+                Toast.makeText(EditImageActivity.this, "Coming soon", Toast.LENGTH_SHORT).show();
+//                mTxtCurrentTool.setText(R.string.label_seal);
                 break;
             case EMOJI:
                 mEmojiBSFragment.show(getSupportFragmentManager(), mEmojiBSFragment.getTag());
@@ -592,7 +594,7 @@ public class EditImageActivity extends BaseActivity implements OnPhotoEditorList
                                     @Override
                                     public void onColorSelected(ColorEnvelope envelope, boolean fromUser) {
                                         Toast.makeText(EditImageActivity.this, "#" + envelope.getHexCode(), Toast.LENGTH_SHORT).show();
-                                        mPhotoEditorView.setViewShadow(envelope.getColor());
+                                        mPhotoEditor.applyShade(envelope.getColor());
                                     }
                                 })
                         .setNegativeButton(
@@ -647,6 +649,7 @@ public class EditImageActivity extends BaseActivity implements OnPhotoEditorList
                                 width = Integer.parseInt(edtWidth.getText().toString());
                                 height = Integer.parseInt(edtHeight.getText().toString());
 
+                                mPhotoEditor.clearAllViews(true);
                                 Bitmap bitmap = BitmapManager.createImage(width, height, Color.WHITE);
                                 mPhotoEditorView.getSource().setImageBitmap(bitmap);
                                 mPickerType = PickerType.CANVAS;

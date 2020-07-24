@@ -69,6 +69,7 @@ public class PhotoEditor implements BrushViewChangeListener {
     private Typeface mDefaultTextTypeface;
     private Typeface mDefaultEmojiTypeface;
     private int mShadeColor = 0;
+    private boolean isShadeApplied = false, isWatermarkApplied = false, isSealApplied = false;
     private String mWaterMark = "", mSeal = "";
 
     private PhotoEditor(Builder builder) {
@@ -569,7 +570,7 @@ public class PhotoEditor implements BrushViewChangeListener {
      * Removes all the edited operations performed {@link PhotoEditorView}
      * This will also clear the undo and redo stack
      */
-    public void clearAllViews() {
+    public void clearAllViews(boolean isNewStart) {
         for (int i = 0; i < addedViews.size(); i++) {
             parentView.removeView(addedViews.get(i));
         }
@@ -579,6 +580,12 @@ public class PhotoEditor implements BrushViewChangeListener {
         addedViews.clear();
         redoViews.clear();
         clearBrushAllViews();
+
+        if (isNewStart) {
+            isWatermarkApplied = false;
+            isShadeApplied = false;
+            isSealApplied = false;
+        }
     }
 
     /**
@@ -689,19 +696,22 @@ public class PhotoEditor implements BrushViewChangeListener {
                                         : parentView.getDrawingCache();
                                 Bitmap updatedBitmap = null;
                                 // Watermark
-                                if (!TextUtils.isEmpty(mWaterMark)) {
+                                if (!isWatermarkApplied && !TextUtils.isEmpty(mWaterMark)) {
                                     updatedBitmap = BitmapManager.addWatermark(context, drawingCache, mWaterMark);
+                                    isWatermarkApplied = true;
                                 }
                                 // Shade
-                                if (mShadeColor > 0) {
+                                if (!isShadeApplied && mShadeColor > 0) {
                                     updatedBitmap = BitmapManager.addShade(((updatedBitmap != null) ? updatedBitmap : drawingCache), mShadeColor);
+                                    isShadeApplied = true;
                                 }
                                 // Seal
-                                if (!TextUtils.isEmpty(mSeal)) {
+                                if (!isSealApplied && !TextUtils.isEmpty(mSeal)) {
                                     updatedBitmap = BitmapManager.addSeal(context, ((updatedBitmap != null) ? updatedBitmap : drawingCache), mSeal, BitmapManager.SEAL_POSITION.RIGHT_BOTTOM);
+                                    isSealApplied = true;
                                 }
                                 // Write image
-                                if(updatedBitmap != null){
+                                if (updatedBitmap != null) {
                                     updatedBitmap.compress(saveSettings.getCompressFormat(), saveSettings.getCompressQuality(), out);
                                 } else {
                                     drawingCache.compress(saveSettings.getCompressFormat(), saveSettings.getCompressQuality(), out);
@@ -723,7 +733,7 @@ public class PhotoEditor implements BrushViewChangeListener {
                         super.onPostExecute(e);
                         if (e == null) {
                             //Clear all views if its enabled in save settings
-                            if (saveSettings.isClearViewsEnabled()) clearAllViews();
+                            if (saveSettings.isClearViewsEnabled()) clearAllViews(false);
                             onSaveListener.onSuccess(imagePath);
                         } else {
                             onSaveListener.onFailure(e);
@@ -738,6 +748,14 @@ public class PhotoEditor implements BrushViewChangeListener {
                 onSaveListener.onFailure(e);
             }
         });
+    }
+
+    public void applyShade(int shadeColor) {
+        parentView.setDrawingCacheEnabled(true);
+        Bitmap drawingCache = BitmapUtil.removeTransparency(parentView.getDrawingCache());
+        Bitmap shadedBitmap = BitmapManager.addShade(drawingCache, shadeColor);
+        parentView.getSource().setImageBitmap(shadedBitmap);
+        isShadeApplied = true;
     }
 
     /**
@@ -788,7 +806,7 @@ public class PhotoEditor implements BrushViewChangeListener {
                     protected void onPostExecute(Bitmap bitmap) {
                         super.onPostExecute(bitmap);
                         if (bitmap != null) {
-                            if (saveSettings.isClearViewsEnabled()) clearAllViews();
+                            if (saveSettings.isClearViewsEnabled()) clearAllViews(false);
                             onSaveBitmap.onBitmapReady(bitmap);
                         } else {
                             onSaveBitmap.onFailure(new Exception("Failed to load the bitmap"));
