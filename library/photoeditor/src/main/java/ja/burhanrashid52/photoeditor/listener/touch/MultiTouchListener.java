@@ -1,4 +1,4 @@
-package ja.burhanrashid52.photoeditor;
+package ja.burhanrashid52.photoeditor.listener.touch;
 
 import android.graphics.Rect;
 import androidx.annotation.Nullable;
@@ -9,13 +9,17 @@ import android.view.View.OnTouchListener;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
+import ja.burhanrashid52.photoeditor.util.Vector2D;
+import ja.burhanrashid52.photoeditor.enumeration.ViewType;
+import ja.burhanrashid52.photoeditor.listener.OnPhotoEditorListener;
+
 /**
  * Created on 18/01/2017.
  *
  * @author <a href="https://github.com/burhanrashid52">Burhanuddin Rashid</a>
  * <p></p>
  */
-class MultiTouchListener implements OnTouchListener {
+public class MultiTouchListener implements OnTouchListener {
 
     private static final int INVALID_POINTER_ID = -1;
     private final GestureDetector mGestureListener;
@@ -39,7 +43,7 @@ class MultiTouchListener implements OnTouchListener {
     private boolean mIsTextPinchZoomable;
     private OnPhotoEditorListener mOnPhotoEditorListener;
 
-    MultiTouchListener(@Nullable View deleteView, RelativeLayout parentView,
+    public MultiTouchListener(@Nullable View deleteView, RelativeLayout parentView,
                        ImageView photoEditImageView, boolean isTextPinchZoomable,
                        OnPhotoEditorListener onPhotoEditorListener) {
         mIsTextPinchZoomable = isTextPinchZoomable;
@@ -243,13 +247,13 @@ class MultiTouchListener implements OnTouchListener {
         void onRemoveViewListener(View removedView);
     }
 
-    interface OnGestureControl {
+    public interface OnGestureControl {
         void onClick();
 
         void onLongClick();
     }
 
-    void setOnGestureControl(OnGestureControl onGestureControl) {
+    public void setOnGestureControl(OnGestureControl onGestureControl) {
         mOnGestureControl = onGestureControl;
     }
 

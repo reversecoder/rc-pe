@@ -1,4 +1,4 @@
-package ja.burhanrashid52.photoeditor;
+package ja.burhanrashid52.photoeditor.view;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -19,8 +19,15 @@ import java.util.Map;
 import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
 
+import ja.burhanrashid52.photoeditor.util.CustomEffect;
+import ja.burhanrashid52.photoeditor.util.GLToolbox;
+import ja.burhanrashid52.photoeditor.listener.OnSaveBitmap;
+import ja.burhanrashid52.photoeditor.enumeration.PhotoFilter;
+import ja.burhanrashid52.photoeditor.util.TextureRenderer;
+import ja.burhanrashid52.photoeditor.util.BitmapUtil;
+
 import static android.media.effect.EffectFactory.*;
-import static ja.burhanrashid52.photoeditor.PhotoFilter.*;
+import static ja.burhanrashid52.photoeditor.enumeration.PhotoFilter.*;
 
 /**
  * <p>
@@ -31,7 +38,7 @@ import static ja.burhanrashid52.photoeditor.PhotoFilter.*;
  * @version 0.1.2
  * @since 2/14/2018
  */
-class ImageFilterView extends GLSurfaceView implements GLSurfaceView.Renderer {
+public class ImageFilterView extends GLSurfaceView implements GLSurfaceView.Renderer {
 
     private static final String TAG = "ImageFilterView";
     private int[] mTextures = new int[2];

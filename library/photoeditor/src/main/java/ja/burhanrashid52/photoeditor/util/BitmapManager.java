@@ -1,4 +1,4 @@
-package ja.burhanrashid52.photoeditor;
+package ja.burhanrashid52.photoeditor.util;
 
 import android.content.Context;
 import android.content.res.Resources;
@@ -36,6 +36,8 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import ja.burhanrashid52.photoeditor.R;
+
 /**
  * @author Md. Rashadul Alam
  * Email: rashed.droid@gmail.com
@@ -44,7 +46,7 @@ public class BitmapManager {
 
     private static String TAG = BitmapManager.class.getSimpleName();
 
-    public enum STAMP_POSITION {LEFT_TOP, LEFT_CENTER, LEFT_BOTTOM, TOP_CENTER, RIGHT_TOP, RIGHT_CENTER, RIGHT_BOTTOM, BOTTOM_CENTER, CENTER}
+    public enum SEAL_POSITION {LEFT_TOP, LEFT_CENTER, LEFT_BOTTOM, TOP_CENTER, RIGHT_TOP, RIGHT_CENTER, RIGHT_BOTTOM, BOTTOM_CENTER, CENTER}
 
     public enum TEXT_POSITION {CENTER, TOP, BOTTOM}
 
@@ -70,7 +72,7 @@ public class BitmapManager {
         return bitmap;
     }
 
-    public static Bitmap setWaterMark(Context context, Bitmap bitmap, String text) {
+    public static Bitmap addWatermark(Context context, Bitmap bitmap, String text) {
         WatermarkText watermarkText = new WatermarkText(text)
                 .setPositionX(0.5)
                 .setPositionY(0.5)
@@ -125,7 +127,7 @@ public class BitmapManager {
         }
     }
 
-    public static Bitmap addStamp(Context gContext, Bitmap bitmap, String gText, STAMP_POSITION stampPosition) {
+    public static Bitmap addSeal(Context gContext, Bitmap bitmap, String gText, SEAL_POSITION stampPosition) {
         Resources resources = gContext.getResources();
         float scale = resources.getDisplayMetrics().density;
         Bitmap.Config bitmapConfig = bitmap.getConfig();

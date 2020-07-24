@@ -1,4 +1,4 @@
-package ja.burhanrashid52.photoeditor;
+package ja.burhanrashid52.photoeditor.util;
 
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
@@ -9,6 +9,8 @@ import android.widget.TextView;
 
 import java.util.HashMap;
 import java.util.Map;
+
+import ja.burhanrashid52.photoeditor.PhotoEditor;
 
 /**
  * <p>
@@ -91,7 +93,7 @@ public class TextStyleBuilder {
      *
      * @param textView TextView to apply the style
      */
-    void applyStyle(@NonNull TextView textView) {
+    public void applyStyle(@NonNull TextView textView) {
         for (Map.Entry<TextStyle, Object> entry : values.entrySet()) {
             switch (entry.getKey()) {
                 case SIZE: {

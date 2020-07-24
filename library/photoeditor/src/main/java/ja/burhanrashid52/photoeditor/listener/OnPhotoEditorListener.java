@@ -1,6 +1,9 @@
-package ja.burhanrashid52.photoeditor;
+package ja.burhanrashid52.photoeditor.listener;
 
 import android.view.View;
+
+import ja.burhanrashid52.photoeditor.enumeration.ViewType;
+import ja.burhanrashid52.photoeditor.view.PhotoEditorView;
 
 /**
  * @author <a href="https://github.com/burhanrashid52">Burhanuddin Rashid</a>

@@ -1,4 +1,6 @@
-package ja.burhanrashid52.photoeditor;
+package ja.burhanrashid52.photoeditor.listener;
+
+import ja.burhanrashid52.photoeditor.view.BrushDrawingView;
 
 /**
  * Created on 1/17/2018.
@@ -6,7 +8,7 @@ package ja.burhanrashid52.photoeditor;
  * <p></p>
  */
 
-interface BrushViewChangeListener {
+public interface BrushViewChangeListener {
     void onViewAdd(BrushDrawingView brushDrawingView);
 
     void onViewRemoved(BrushDrawingView brushDrawingView);

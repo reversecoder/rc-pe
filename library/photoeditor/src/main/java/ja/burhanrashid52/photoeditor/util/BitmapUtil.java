@@ -1,4 +1,4 @@
-package ja.burhanrashid52.photoeditor;
+package ja.burhanrashid52.photoeditor.util;
 
 import android.graphics.Bitmap;
 import android.graphics.Color;
@@ -9,6 +9,8 @@ import java.nio.IntBuffer;
 
 import javax.microedition.khronos.opengles.GL10;
 
+import ja.burhanrashid52.photoeditor.view.ImageFilterView;
+
 /**
  * <p>
  * Bitmap utility class to perform different transformation on bitmap
@@ -18,14 +20,14 @@ import javax.microedition.khronos.opengles.GL10;
  * @version 0.1.2
  * @since 5/21/2018
  */
-class BitmapUtil {
+public class BitmapUtil {
     /**
      * Remove transparency in edited bitmap
      *
      * @param source edited image
      * @return bitmap without any transparency
      */
-    static Bitmap removeTransparency(Bitmap source) {
+    public static Bitmap removeTransparency(Bitmap source) {
         int firstX = 0, firstY = 0;
         int lastX = source.getWidth();
         int lastY = source.getHeight();
@@ -78,7 +80,7 @@ class BitmapUtil {
      * @return save bitmap
      * @throws OutOfMemoryError error when system is out of memory to load and save bitmap
      */
-    static Bitmap createBitmapFromGLSurface(GLSurfaceView glSurfaceView, GL10 gl) throws OutOfMemoryError {
+    public static Bitmap createBitmapFromGLSurface(GLSurfaceView glSurfaceView, GL10 gl) throws OutOfMemoryError {
         int x = 0, y = 0;
         int w = glSurfaceView.getWidth();
         int h = glSurfaceView.getHeight();

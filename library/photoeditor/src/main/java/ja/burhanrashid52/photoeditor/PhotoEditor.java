@@ -6,12 +6,6 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Typeface;
 import android.os.AsyncTask;
-import androidx.annotation.ColorInt;
-import androidx.annotation.IntRange;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.annotation.RequiresPermission;
-import androidx.annotation.UiThread;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.Gravity;
@@ -23,10 +17,31 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import androidx.annotation.ColorInt;
+import androidx.annotation.IntRange;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.annotation.RequiresPermission;
+import androidx.annotation.UiThread;
+
 import java.io.File;
 import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.List;
+
+import ja.burhanrashid52.photoeditor.enumeration.PhotoFilter;
+import ja.burhanrashid52.photoeditor.enumeration.ViewType;
+import ja.burhanrashid52.photoeditor.listener.BrushViewChangeListener;
+import ja.burhanrashid52.photoeditor.listener.OnPhotoEditorListener;
+import ja.burhanrashid52.photoeditor.listener.OnSaveBitmap;
+import ja.burhanrashid52.photoeditor.listener.touch.MultiTouchListener;
+import ja.burhanrashid52.photoeditor.util.BitmapManager;
+import ja.burhanrashid52.photoeditor.util.BitmapUtil;
+import ja.burhanrashid52.photoeditor.util.CustomEffect;
+import ja.burhanrashid52.photoeditor.util.SaveSettings;
+import ja.burhanrashid52.photoeditor.util.TextStyleBuilder;
+import ja.burhanrashid52.photoeditor.view.BrushDrawingView;
+import ja.burhanrashid52.photoeditor.view.PhotoEditorView;
 
 /**
  * <p>
@@ -53,7 +68,8 @@ public class PhotoEditor implements BrushViewChangeListener {
     private boolean isTextPinchZoomable;
     private Typeface mDefaultTextTypeface;
     private Typeface mDefaultEmojiTypeface;
-
+    private int mShadeColor = 0;
+    private String mWaterMark = "", mSeal = "";
 
     private PhotoEditor(Builder builder) {
         this.context = builder.context;
@@ -64,6 +80,9 @@ public class PhotoEditor implements BrushViewChangeListener {
         this.isTextPinchZoomable = builder.isTextPinchZoomable;
         this.mDefaultTextTypeface = builder.textTypeface;
         this.mDefaultEmojiTypeface = builder.emojiTypeface;
+        this.mShadeColor = builder.shadeColor;
+        this.mWaterMark = builder.watermark;
+        this.mSeal = builder.seal;
         mLayoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         brushDrawingView.setBrushViewChangeListener(this);
         addedViews = new ArrayList<>();
@@ -668,9 +687,25 @@ public class PhotoEditor implements BrushViewChangeListener {
                                 Bitmap drawingCache = saveSettings.isTransparencyEnabled()
                                         ? BitmapUtil.removeTransparency(parentView.getDrawingCache())
                                         : parentView.getDrawingCache();
+                                Bitmap updatedBitmap = null;
                                 // Watermark
-                                Bitmap watermarkedBitmap = BitmapManager.setWaterMark(context, drawingCache, context.getString(R.string.text_default_water_mark));
-                                watermarkedBitmap.compress(saveSettings.getCompressFormat(), saveSettings.getCompressQuality(), out);
+                                if (!TextUtils.isEmpty(mWaterMark)) {
+                                    updatedBitmap = BitmapManager.addWatermark(context, drawingCache, mWaterMark);
+                                }
+                                // Shade
+                                if (mShadeColor > 0) {
+                                    updatedBitmap = BitmapManager.addShade(((updatedBitmap != null) ? updatedBitmap : drawingCache), mShadeColor);
+                                }
+                                // Seal
+                                if (!TextUtils.isEmpty(mSeal)) {
+                                    updatedBitmap = BitmapManager.addSeal(context, ((updatedBitmap != null) ? updatedBitmap : drawingCache), mSeal, BitmapManager.SEAL_POSITION.RIGHT_BOTTOM);
+                                }
+                                // Write image
+                                if(updatedBitmap != null){
+                                    updatedBitmap.compress(saveSettings.getCompressFormat(), saveSettings.getCompressQuality(), out);
+                                } else {
+                                    drawingCache.compress(saveSettings.getCompressFormat(), saveSettings.getCompressQuality(), out);
+                                }
                             }
                             out.flush();
                             out.close();
@@ -854,6 +889,8 @@ public class PhotoEditor implements BrushViewChangeListener {
         private Typeface emojiTypeface;
         //By Default pinch zoom on text is enabled
         private boolean isTextPinchZoomable = true;
+        private int shadeColor = 0;
+        private String watermark = "", seal = "";
 
         /**
          * Building a PhotoEditor which requires a Context and PhotoEditorView
@@ -869,7 +906,22 @@ public class PhotoEditor implements BrushViewChangeListener {
             brushDrawingView = photoEditorView.getBrushDrawingView();
         }
 
-        Builder setDeleteView(View deleteView) {
+        public Builder setShadeColor(int shadeColor) {
+            this.shadeColor = shadeColor;
+            return this;
+        }
+
+        public Builder setWatermark(String watermark) {
+            this.watermark = watermark;
+            return this;
+        }
+
+        public Builder setSeal(String seal) {
+            this.seal = seal;
+            return this;
+        }
+
+        public Builder setDeleteView(View deleteView) {
             this.deleteView = deleteView;
             return this;
         }

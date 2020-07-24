@@ -14,11 +14,13 @@
  * limitations under the License.
  */
 
-package ja.burhanrashid52.photoeditor;
+package ja.burhanrashid52.photoeditor.listener.touch;
 
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+
+import ja.burhanrashid52.photoeditor.util.Vector2D;
 
 /**
  * Detects transformation gestures involving more than one pointer ("multitouch")
@@ -32,7 +34,7 @@ import android.view.View;
  *      {@link View}
  * </ul>
  */
-class ScaleGestureDetector {
+public class ScaleGestureDetector {
     private static final String TAG = "ScaleGestureDetector";
 
     /**
@@ -91,7 +93,7 @@ class ScaleGestureDetector {
      * A convenience class to extend when you only want to listen for a subset
      * of scaling-related events. This implements all methods in
      */
-    static class SimpleOnScaleGestureListener implements OnScaleGestureListener {
+    public static class SimpleOnScaleGestureListener implements OnScaleGestureListener {
 
         public boolean onScale(View view, ScaleGestureDetector detector) {
             return false;
@@ -144,12 +146,12 @@ class ScaleGestureDetector {
     private int mActiveId1;
     private boolean mActive0MostRecent;
 
-    ScaleGestureDetector(OnScaleGestureListener listener) {
+    public ScaleGestureDetector(OnScaleGestureListener listener) {
         mListener = listener;
         mCurrSpanVector = new Vector2D();
     }
 
-    boolean onTouchEvent(View view, MotionEvent event) {
+    public boolean onTouchEvent(View view, MotionEvent event) {
         final int action = event.getActionMasked();
 
         if (action == MotionEvent.ACTION_DOWN) {
@@ -398,7 +400,7 @@ class ScaleGestureDetector {
      * Returns {@code true} if a two-finger scale gesture is in progress.
      * @return {@code true} if a scale gesture is in progress, {@code false} otherwise.
      */
-    boolean isInProgress() {
+    public boolean isInProgress() {
         return mGestureInProgress;
     }
 
@@ -413,7 +415,7 @@ class ScaleGestureDetector {
      *
      * @return X coordinate of the focal point in pixels.
      */
-    float getFocusX() {
+    public float getFocusX() {
         return mFocusX;
     }
 
@@ -428,7 +430,7 @@ class ScaleGestureDetector {
      *
      * @return Y coordinate of the focal point in pixels.
      */
-    float getFocusY() {
+    public float getFocusY() {
         return mFocusY;
     }
 
@@ -447,7 +449,7 @@ class ScaleGestureDetector {
         return mCurrLen;
     }
 
-    Vector2D getCurrentSpanVector() {
+    public Vector2D getCurrentSpanVector() {
         return mCurrSpanVector;
     }
 

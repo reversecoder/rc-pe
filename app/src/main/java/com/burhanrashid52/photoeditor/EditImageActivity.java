@@ -25,6 +25,7 @@ import androidx.annotation.VisibleForTesting;
 import androidx.appcompat.app.AlertDialog;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.constraintlayout.widget.ConstraintSet;
+import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -38,11 +39,11 @@ import com.burhanrashid52.photoeditor.tools.EditingToolsAdapter;
 import com.burhanrashid52.photoeditor.tools.PickerType;
 import com.burhanrashid52.photoeditor.tools.ToolType;
 import com.burhanrashid52.photoeditor.util.AppUtil;
-import ja.burhanrashid52.photoeditor.BitmapManager;
 import com.skydoves.colorpickerview.ColorEnvelope;
 import com.skydoves.colorpickerview.ColorPickerDialog;
 import com.skydoves.colorpickerview.ColorPickerView;
 import com.skydoves.colorpickerview.listeners.ColorEnvelopeListener;
+import com.steelkiwi.cropiwa.CropIwaView;
 
 import java.io.File;
 import java.io.IOException;
@@ -50,13 +51,14 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import cn.ymex.popup.dialog.PopupDialog;
-import ja.burhanrashid52.photoeditor.OnPhotoEditorListener;
+import ja.burhanrashid52.photoeditor.util.BitmapManager;
+import ja.burhanrashid52.photoeditor.listener.OnPhotoEditorListener;
 import ja.burhanrashid52.photoeditor.PhotoEditor;
-import ja.burhanrashid52.photoeditor.PhotoEditorView;
-import ja.burhanrashid52.photoeditor.PhotoFilter;
-import ja.burhanrashid52.photoeditor.SaveSettings;
-import ja.burhanrashid52.photoeditor.TextStyleBuilder;
-import ja.burhanrashid52.photoeditor.ViewType;
+import ja.burhanrashid52.photoeditor.view.PhotoEditorView;
+import ja.burhanrashid52.photoeditor.enumeration.PhotoFilter;
+import ja.burhanrashid52.photoeditor.util.SaveSettings;
+import ja.burhanrashid52.photoeditor.util.TextStyleBuilder;
+import ja.burhanrashid52.photoeditor.enumeration.ViewType;
 
 public class EditImageActivity extends BaseActivity implements OnPhotoEditorListener,
         View.OnClickListener,
@@ -82,6 +84,7 @@ public class EditImageActivity extends BaseActivity implements OnPhotoEditorList
     private ConstraintSet mConstraintSet = new ConstraintSet();
     private boolean mIsFilterVisible;
     private PickerType mPickerType;
+    private CropIwaView cropIwaView;
 
     @Nullable
     @VisibleForTesting
@@ -123,7 +126,14 @@ public class EditImageActivity extends BaseActivity implements OnPhotoEditorList
                 .setPinchTextScalable(true) // set flag to make text scalable when pinch
                 //.setDefaultTextTypeface(mTextRobotoTf)
                 //.setDefaultEmojiTypeface(mEmojiTypeFace)
+                .setWatermark(getString(R.string.text_default_water_mark))
+                .setSeal(getString(R.string.text_default_seal))
+                .setShadeColor(838860800)
                 .build(); // build photo editor sdk
+        // Shadow color
+        //838860800//50
+        //335544320//20
+        //167772160//10
 
         mPhotoEditor.setOnPhotoEditorListener(this);
 
@@ -184,6 +194,7 @@ public class EditImageActivity extends BaseActivity implements OnPhotoEditorList
         imgShare = findViewById(R.id.imgShare);
         imgShare.setOnClickListener(this);
 
+        cropIwaView = findViewById(R.id.cropiwaview);
     }
 
     @Override
@@ -449,12 +460,18 @@ public class EditImageActivity extends BaseActivity implements OnPhotoEditorList
             Toast.makeText(EditImageActivity.this, "Please pick image first", Toast.LENGTH_SHORT).show();
             return;
         }
+        cropIwaView.setVisibility(View.GONE);
         switch (toolType) {
             case BACKGROUND:
-                openColorPickerDialog();
+                openBackgroundSelectorDialog();
                 mTxtCurrentTool.setText(R.string.label_background);
                 break;
             case CROP:
+                if (!mPhotoEditor.isCacheEmpty()) {
+                    Toast.makeText(EditImageActivity.this, "Please save image before cropping", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                cropIwaView.setVisibility(View.VISIBLE);
                 mTxtCurrentTool.setText(R.string.label_crop);
                 break;
             case BRUSH:
@@ -484,10 +501,13 @@ public class EditImageActivity extends BaseActivity implements OnPhotoEditorList
                 showFilter(true);
                 break;
             case SHADE:
+                openShadeSelectorDialog();
                 mTxtCurrentTool.setText(R.string.label_shade);
                 break;
             case WATERMARK:
                 mTxtCurrentTool.setText(R.string.label_watermark);
+            case SEAL:
+                mTxtCurrentTool.setText(R.string.label_seal);
                 break;
             case EMOJI:
                 mEmojiBSFragment.show(getSupportFragmentManager(), mEmojiBSFragment.getTag());
@@ -497,7 +517,6 @@ public class EditImageActivity extends BaseActivity implements OnPhotoEditorList
                 break;
         }
     }
-
 
     void showFilter(boolean isVisible) {
         mIsFilterVisible = isVisible;
@@ -535,7 +554,7 @@ public class EditImageActivity extends BaseActivity implements OnPhotoEditorList
         }
     }
 
-    private void openColorPickerDialog() {
+    private void openBackgroundSelectorDialog() {
         ColorPickerDialog.Builder builder =
                 new ColorPickerDialog.Builder(this, R.style.DarkDialog)
                         .setTitle("ColorPicker Dialog")
@@ -562,6 +581,33 @@ public class EditImageActivity extends BaseActivity implements OnPhotoEditorList
         builder.show();
     }
 
+    private void openShadeSelectorDialog() {
+        ColorPickerDialog.Builder builder =
+                new ColorPickerDialog.Builder(this, R.style.DarkDialog)
+                        .setTitle("ColorPicker Dialog")
+                        .setPreferenceName("Test")
+                        .setPositiveButton(
+                                getString(R.string.confirm),
+                                new ColorEnvelopeListener() {
+                                    @Override
+                                    public void onColorSelected(ColorEnvelope envelope, boolean fromUser) {
+                                        Toast.makeText(EditImageActivity.this, "#" + envelope.getHexCode(), Toast.LENGTH_SHORT).show();
+                                        mPhotoEditorView.setViewShadow(envelope.getColor());
+                                    }
+                                })
+                        .setNegativeButton(
+                                getString(R.string.cancel),
+                                new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialogInterface, int i) {
+                                        dialogInterface.dismiss();
+                                    }
+                                });
+        ColorPickerView colorPickerView = builder.getColorPickerView();
+        colorPickerView.setFlagView(new BubbleFlag(this, R.layout.layout_flag));
+        builder.show();
+    }
+
     private boolean isImageAvailable() {
         if (mPickerType == null) {
             return false;
@@ -569,7 +615,7 @@ public class EditImageActivity extends BaseActivity implements OnPhotoEditorList
         return true;
     }
 
-    private void showCreateCanvasDialog(){
+    private void showCreateCanvasDialog() {
 
         PopupDialog.create(this)
                 .view(R.layout.dialog_new_canvas, new PopupDialog.OnBindViewListener() {

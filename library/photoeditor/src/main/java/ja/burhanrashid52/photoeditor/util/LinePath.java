@@ -1,22 +1,22 @@
-package ja.burhanrashid52.photoeditor;
+package ja.burhanrashid52.photoeditor.util;
 
 import android.graphics.Paint;
 import android.graphics.Path;
 
-class LinePath {
+public class LinePath {
     private final Paint mDrawPaint;
     private final Path mDrawPath;
 
-    LinePath(final Path drawPath, final Paint drawPaints) {
+    public LinePath(final Path drawPath, final Paint drawPaints) {
         mDrawPaint = new Paint(drawPaints);
         mDrawPath = new Path(drawPath);
     }
 
-    Paint getDrawPaint() {
+    public Paint getDrawPaint() {
         return mDrawPaint;
     }
 
-    Path getDrawPath() {
+    public Path getDrawPath() {
         return mDrawPath;
     }
 }

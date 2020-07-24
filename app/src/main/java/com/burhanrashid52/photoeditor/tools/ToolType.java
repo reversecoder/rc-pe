@@ -10,6 +10,7 @@ public enum ToolType {
     FILTER("Filter"),
     SHADE("Shade"),
     WATERMARK("Watermark"),
+    SEAL("Seal"),
     EMOJI("Emoji"),
     STICKER("Sticker");
 

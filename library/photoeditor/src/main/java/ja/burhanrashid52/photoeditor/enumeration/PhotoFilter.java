@@ -1,4 +1,6 @@
-package ja.burhanrashid52.photoeditor;
+package ja.burhanrashid52.photoeditor.enumeration;
+
+import ja.burhanrashid52.photoeditor.view.ImageFilterView;
 
 /**
  * <p>

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package ja.burhanrashid52.photoeditor;
+package ja.burhanrashid52.photoeditor.util;
 
 import android.opengl.GLES20;
 
@@ -22,7 +22,9 @@ import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.nio.FloatBuffer;
 
-class TextureRenderer {
+import ja.burhanrashid52.photoeditor.util.GLToolbox;
+
+public class TextureRenderer {
 
     private int mProgram;
     private int mTexSamplerHandle;
@@ -65,7 +67,7 @@ class TextureRenderer {
 
     private static final int FLOAT_SIZE_BYTES = 4;
 
-    void init() {
+    public void init() {
         // Create program
         mProgram = GLToolbox.createProgram(VERTEX_SHADER, FRAGMENT_SHADER);
 
@@ -90,19 +92,19 @@ class TextureRenderer {
         GLES20.glDeleteProgram(mProgram);
     }
 
-    void updateTextureSize(int texWidth, int texHeight) {
+    public void updateTextureSize(int texWidth, int texHeight) {
         mTexWidth = texWidth;
         mTexHeight = texHeight;
         computeOutputVertices();
     }
 
-    void updateViewSize(int viewWidth, int viewHeight) {
+    public void updateViewSize(int viewWidth, int viewHeight) {
         mViewWidth = viewWidth;
         mViewHeight = viewHeight;
         computeOutputVertices();
     }
 
-    void renderTexture(int texId) {
+    public void renderTexture(int texId) {
         // Bind default FBO
         GLES20.glBindFramebuffer(GLES20.GL_FRAMEBUFFER, 0);
 

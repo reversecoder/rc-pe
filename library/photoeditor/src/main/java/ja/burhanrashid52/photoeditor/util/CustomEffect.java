@@ -1,4 +1,4 @@
-package ja.burhanrashid52.photoeditor;
+package ja.burhanrashid52.photoeditor.util;
 
 import androidx.annotation.NonNull;
 import android.text.TextUtils;

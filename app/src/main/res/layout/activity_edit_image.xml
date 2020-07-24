@@ -16,10 +16,21 @@
         android:orientation="horizontal"
         app:layout_constraintGuide_end="?attr/actionBarSize" />
 
-    <ja.burhanrashid52.photoeditor.PhotoEditorView
+    <ja.burhanrashid52.photoeditor.view.PhotoEditorView
         android:id="@+id/photoEditorView"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/rvConstraintTools"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.steelkiwi.cropiwa.CropIwaView
+        android:id="@+id/cropiwaview"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:visibility="gone"
+        app:ci_dynamic_aspect_ratio="false"
         app:layout_constraintBottom_toTopOf="@+id/rvConstraintTools"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -139,12 +150,12 @@
 
     <ImageView
         android:id="@+id/imgShare"
-        android:visibility="gone"
         android:layout_width="@dimen/top_tool_icon_width"
         android:layout_height="wrap_content"
         android:background="@color/semi_black_transparent"
         android:padding="8dp"
         android:src="@drawable/ic_share"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="@+id/photoEditorView"
         app:layout_constraintEnd_toStartOf="@+id/imgUndo"
         app:layout_constraintStart_toEndOf="@+id/imgCamera" />

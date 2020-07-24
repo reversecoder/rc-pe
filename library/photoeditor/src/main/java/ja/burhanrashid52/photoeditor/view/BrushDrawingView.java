@@ -1,4 +1,4 @@
-package ja.burhanrashid52.photoeditor;
+package ja.burhanrashid52.photoeditor.view;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -18,6 +18,9 @@ import android.util.Pair;
 import android.view.MotionEvent;
 import android.view.View;
 import java.util.Stack;
+
+import ja.burhanrashid52.photoeditor.listener.BrushViewChangeListener;
+import ja.burhanrashid52.photoeditor.util.LinePath;
 
 /**
  * <p>
@@ -90,13 +93,13 @@ public class BrushDrawingView extends View {
         setupPathAndPaint();
     }
 
-    void brushEraser() {
+    public void brushEraser() {
         mBrushDrawMode = true;
         mDrawPaint.setStrokeWidth(mBrushEraserSize);
         mDrawPaint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.CLEAR));
     }
 
-    void setBrushDrawingMode(boolean brushDrawMode) {
+    public void setBrushDrawingMode(boolean brushDrawMode) {
         this.mBrushDrawMode = brushDrawMode;
         if (brushDrawMode) {
             this.setVisibility(View.VISIBLE);
@@ -104,52 +107,52 @@ public class BrushDrawingView extends View {
         }
     }
 
-    void setOpacity(@IntRange(from = 0, to = 255) int opacity) {
+    public void setOpacity(@IntRange(from = 0, to = 255) int opacity) {
         this.mOpacity = opacity;
         setBrushDrawingMode(true);
     }
 
-    int getOpacity() {
+    public int getOpacity() {
         return mOpacity;
     }
 
-    boolean getBrushDrawingMode() {
+    public boolean getBrushDrawingMode() {
         return mBrushDrawMode;
     }
 
-    void setBrushSize(float size) {
+    public void setBrushSize(float size) {
         mBrushSize = size;
         setBrushDrawingMode(true);
     }
 
-    void setBrushColor(@ColorInt int color) {
+    public void setBrushColor(@ColorInt int color) {
         mDrawPaint.setColor(color);
         setBrushDrawingMode(true);
     }
 
-    void setBrushEraserSize(float brushEraserSize) {
+    public void setBrushEraserSize(float brushEraserSize) {
         this.mBrushEraserSize = brushEraserSize;
         setBrushDrawingMode(true);
     }
 
-    void setBrushEraserColor(@ColorInt int color) {
+    public void setBrushEraserColor(@ColorInt int color) {
         mDrawPaint.setColor(color);
         setBrushDrawingMode(true);
     }
 
-    float getEraserSize() {
+    public float getEraserSize() {
         return mBrushEraserSize;
     }
 
-    float getBrushSize() {
+    public float getBrushSize() {
         return mBrushSize;
     }
 
-    int getBrushColor() {
+    public int getBrushColor() {
         return mDrawPaint.getColor();
     }
 
-    void clearAll() {
+    public void clearAll() {
         mDrawnPaths.clear();
         mRedoPaths.clear();
         if (mDrawCanvas != null) {
@@ -158,7 +161,7 @@ public class BrushDrawingView extends View {
         invalidate();
     }
 
-    void setBrushViewChangeListener(BrushViewChangeListener brushViewChangeListener) {
+    public void setBrushViewChangeListener(BrushViewChangeListener brushViewChangeListener) {
         mBrushViewChangeListener = brushViewChangeListener;
     }
 
@@ -207,7 +210,7 @@ public class BrushDrawingView extends View {
         }
     }
 
-    boolean undo() {
+    public boolean undo() {
         if (!mDrawnPaths.empty()) {
             mRedoPaths.push(mDrawnPaths.pop());
             invalidate();
@@ -218,7 +221,7 @@ public class BrushDrawingView extends View {
         return !mDrawnPaths.empty();
     }
 
-    boolean redo() {
+    public boolean redo() {
         if (!mRedoPaths.empty()) {
             mDrawnPaths.push(mRedoPaths.pop());
             invalidate();

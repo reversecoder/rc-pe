@@ -1,8 +1,10 @@
-package ja.burhanrashid52.photoeditor;
+package ja.burhanrashid52.photoeditor.util;
 
 import android.graphics.Bitmap;
 import androidx.annotation.IntRange;
 import androidx.annotation.NonNull;
+
+import ja.burhanrashid52.photoeditor.view.PhotoEditorView;
 
 /**
  * @author <a href="https://github.com/burhanrashid52">Burhanuddin Rashid</a>
@@ -15,19 +17,19 @@ public class SaveSettings {
     private Bitmap.CompressFormat compressFormat;
     private int compressQuality;
 
-    boolean isTransparencyEnabled() {
+    public boolean isTransparencyEnabled() {
         return isTransparencyEnabled;
     }
 
-    boolean isClearViewsEnabled() {
+    public boolean isClearViewsEnabled() {
         return isClearViewsEnabled;
     }
 
-    Bitmap.CompressFormat getCompressFormat() {
+    public Bitmap.CompressFormat getCompressFormat() {
         return compressFormat;
     }
 
-    int getCompressQuality() {
+    public int getCompressQuality() {
         return compressQuality;
     }
 

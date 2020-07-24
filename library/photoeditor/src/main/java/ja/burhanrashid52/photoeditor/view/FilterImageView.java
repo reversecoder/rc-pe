@@ -1,4 +1,4 @@
-package ja.burhanrashid52.photoeditor;
+package ja.burhanrashid52.photoeditor.view;
 
 import android.content.Context;
 import android.content.res.ColorStateList;

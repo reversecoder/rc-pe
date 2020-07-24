@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-package ja.burhanrashid52.photoeditor;
+package ja.burhanrashid52.photoeditor.util;
 
 import android.opengl.GLES20;
 
-class GLToolbox {
+public class GLToolbox {
 
     private static int loadShader(int shaderType, String source) {
         int shader = GLES20.glCreateShader(shaderType);
@@ -36,7 +36,7 @@ class GLToolbox {
         return shader;
     }
 
-    static int createProgram(String vertexSource, String fragmentSource) {
+    public static int createProgram(String vertexSource, String fragmentSource) {
         int vertexShader = loadShader(GLES20.GL_VERTEX_SHADER, vertexSource);
         if (vertexShader == 0) {
             return 0;
@@ -65,14 +65,14 @@ class GLToolbox {
         return program;
     }
 
-    static void checkGlError(String op) {
+    public static void checkGlError(String op) {
         int error = GLES20.glGetError();
         if (error != GLES20.GL_NO_ERROR) {
             throw new RuntimeException(op + ": glError " + error);
         }
     }
 
-    static void initTexParams() {
+    public static void initTexParams() {
         GLES20.glTexParameteri(GLES20.GL_TEXTURE_2D,
                 GLES20.GL_TEXTURE_MAG_FILTER, GLES20.GL_LINEAR);
         GLES20.glTexParameteri(GLES20.GL_TEXTURE_2D,

@@ -1,7 +1,8 @@
-package ja.burhanrashid52.photoeditor;
+package ja.burhanrashid52.photoeditor.view;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.res.ColorStateList;
 import android.content.res.TypedArray;
 import android.graphics.Bitmap;
 import android.graphics.Color;
@@ -11,11 +12,19 @@ import android.os.Build;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
+import androidx.core.content.ContextCompat;
+
+import android.os.Handler;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+
+import ja.burhanrashid52.photoeditor.util.CustomEffect;
+import ja.burhanrashid52.photoeditor.listener.OnSaveBitmap;
+import ja.burhanrashid52.photoeditor.enumeration.PhotoFilter;
+import ja.burhanrashid52.photoeditor.R;
 
 /**
  * <p>
@@ -122,11 +131,11 @@ public class PhotoEditorView extends RelativeLayout {
         return mImgSource;
     }
 
-    BrushDrawingView getBrushDrawingView() {
+    public BrushDrawingView getBrushDrawingView() {
         return mBrushDrawingView;
     }
 
-    void saveFilter(@NonNull final OnSaveBitmap onSaveBitmap) {
+    public void saveFilter(@NonNull final OnSaveBitmap onSaveBitmap) {
         if (mImageFilterView.getVisibility() == VISIBLE) {
             mImageFilterView.saveBitmap(new OnSaveBitmap() {
                 @Override
@@ -147,13 +156,13 @@ public class PhotoEditorView extends RelativeLayout {
         }
     }
 
-    void setFilterEffect(PhotoFilter filterType) {
+    public void setFilterEffect(PhotoFilter filterType) {
         mImageFilterView.setVisibility(VISIBLE);
         mImageFilterView.setSourceBitmap(mImgSource.getBitmap());
         mImageFilterView.setFilterEffect(filterType);
     }
 
-    void setFilterEffect(CustomEffect customEffect) {
+    public void setFilterEffect(CustomEffect customEffect) {
         mImageFilterView.setVisibility(VISIBLE);
         mImageFilterView.setSourceBitmap(mImgSource.getBitmap());
         mImageFilterView.setFilterEffect(customEffect);
@@ -183,5 +192,31 @@ public class PhotoEditorView extends RelativeLayout {
         }
 
         mImgSource.setImageBitmap(dstBitmap);
+    }
+
+    public void setViewShadow(final int colorValue) {
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                // Create color state
+                ColorStateList themeColorStateList = new ColorStateList(
+                        new int[][]{
+                                new int[]{android.R.attr.state_pressed},
+                                new int[]{android.R.attr.state_enabled},
+                                new int[]{android.R.attr.state_focused, android.R.attr.state_pressed},
+                                new int[]{-android.R.attr.state_enabled},
+                                new int[]{} // this should be empty to make default color as we want
+                        },
+                        new int[]{
+                                colorValue,
+                                colorValue,
+                                colorValue,
+                                colorValue,
+                                colorValue
+                        }
+                );
+                mImgSource.setBackgroundTintList(themeColorStateList);
+            }
+        }, 10);
     }
 }
