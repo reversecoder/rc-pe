@@ -1,4 +1,4 @@
-package com.burhanrashid52.photoeditor.tools;
+package com.meembusoft.photoeditor.tools;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,7 +9,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.burhanrashid52.photoeditor.R;
+import com.meembusoft.photoeditor.R;
 
 import java.util.ArrayList;
 import java.util.List;

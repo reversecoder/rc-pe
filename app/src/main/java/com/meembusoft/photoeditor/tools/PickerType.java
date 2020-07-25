@@ -1,4 +1,4 @@
-package com.burhanrashid52.photoeditor.tools;
+package com.meembusoft.photoeditor.tools;
 
 public enum PickerType {
     GALLERY,

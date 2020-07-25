@@ -1,4 +1,4 @@
-package com.burhanrashid52.photoeditor.activity;
+package com.meembusoft.photoeditor.activity;
 
 import android.content.Context;
 import android.content.res.Resources;
@@ -15,15 +15,15 @@ import android.view.MenuItem;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
 
-import com.burhanrashid52.photoeditor.R;
-import com.burhanrashid52.photoeditor.base.BaseActivity;
+import com.meembusoft.photoeditor.R;
+import com.meembusoft.photoeditor.base.BaseActivity;
 import com.steelkiwi.cropiwa.CropIwaView;
 import com.steelkiwi.cropiwa.config.CropIwaSaveConfig;
 import com.steelkiwi.cropiwa.shape.CropIwaRectShape;
 
 import java.io.File;
 
-import static com.burhanrashid52.photoeditor.activity.EditImageActivity.IMAGE_URI;
+import static com.meembusoft.photoeditor.activity.EditImageActivity.IMAGE_URI;
 
 public class CropActivity extends BaseActivity {
 

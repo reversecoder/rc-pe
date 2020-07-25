@@ -1,4 +1,4 @@
-package com.burhanrashid52.photoeditor.util;
+package com.meembusoft.photoeditor.util;
 
 import android.content.Context;
 import android.content.pm.ApplicationInfo;

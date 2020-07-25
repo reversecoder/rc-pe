@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.burhanrashid52.photoeditor;
+package com.meembusoft.photoeditor;
 
 import android.annotation.SuppressLint;
 import android.content.Context;

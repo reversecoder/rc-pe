@@ -1,4 +1,4 @@
-package com.burhanrashid52.photoeditor.activity;
+package com.meembusoft.photoeditor.activity;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
@@ -31,19 +31,19 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.transition.ChangeBounds;
 import androidx.transition.TransitionManager;
 
-import com.burhanrashid52.photoeditor.BubbleFlag;
-import com.burhanrashid52.photoeditor.EmojiBSFragment;
-import com.burhanrashid52.photoeditor.PropertiesBSFragment;
-import com.burhanrashid52.photoeditor.R;
-import com.burhanrashid52.photoeditor.StickerBSFragment;
-import com.burhanrashid52.photoeditor.TextEditorDialogFragment;
-import com.burhanrashid52.photoeditor.base.BaseActivity;
-import com.burhanrashid52.photoeditor.filters.FilterListener;
-import com.burhanrashid52.photoeditor.filters.FilterViewAdapter;
-import com.burhanrashid52.photoeditor.tools.EditingToolsAdapter;
-import com.burhanrashid52.photoeditor.tools.PickerType;
-import com.burhanrashid52.photoeditor.tools.ToolType;
-import com.burhanrashid52.photoeditor.util.AppUtil;
+import com.meembusoft.photoeditor.BubbleFlag;
+import com.meembusoft.photoeditor.EmojiBSFragment;
+import com.meembusoft.photoeditor.PropertiesBSFragment;
+import com.meembusoft.photoeditor.R;
+import com.meembusoft.photoeditor.StickerBSFragment;
+import com.meembusoft.photoeditor.TextEditorDialogFragment;
+import com.meembusoft.photoeditor.base.BaseActivity;
+import com.meembusoft.photoeditor.filters.FilterListener;
+import com.meembusoft.photoeditor.filters.FilterViewAdapter;
+import com.meembusoft.photoeditor.tools.EditingToolsAdapter;
+import com.meembusoft.photoeditor.tools.PickerType;
+import com.meembusoft.photoeditor.tools.ToolType;
+import com.meembusoft.photoeditor.util.AppUtil;
 import com.skydoves.colorpickerview.ColorEnvelope;
 import com.skydoves.colorpickerview.ColorPickerDialog;
 import com.skydoves.colorpickerview.ColorPickerView;

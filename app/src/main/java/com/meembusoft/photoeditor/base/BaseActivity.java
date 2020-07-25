@@ -1,4 +1,4 @@
-package com.burhanrashid52.photoeditor.base;
+package com.meembusoft.photoeditor.base;
 
 import android.app.ProgressDialog;
 import android.content.pm.PackageManager;

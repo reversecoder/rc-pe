@@ -1,4 +1,4 @@
-package com.burhanrashid52.photoeditor;
+package com.meembusoft.photoeditor;
 
 import android.content.Context;
 import android.graphics.Color;

@@ -1,4 +1,4 @@
-package com.burhanrashid52.photoeditor.base;
+package com.meembusoft.photoeditor.base;
 
 import android.os.Bundle;
 import androidx.annotation.NonNull;

@@ -1,4 +1,4 @@
-package com.burhanrashid52.photoeditor;
+package com.meembusoft.photoeditor;
 
 import android.app.Dialog;
 import android.content.Context;
