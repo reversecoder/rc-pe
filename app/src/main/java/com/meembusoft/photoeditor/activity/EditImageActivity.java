@@ -655,7 +655,6 @@ public class EditImageActivity extends BaseActivity implements OnPhotoEditorList
     }
 
     private void showCreateCanvasDialog() {
-
         PopupDialog.create(this)
                 .view(R.layout.dialog_new_canvas, new PopupDialog.OnBindViewListener() {
                     @Override

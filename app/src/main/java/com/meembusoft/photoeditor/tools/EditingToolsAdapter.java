@@ -42,17 +42,27 @@ public class EditingToolsAdapter extends RecyclerView.Adapter<EditingToolsAdapte
 
     public void setPickerType(PickerType mPickerType) {
         this.mPickerType = mPickerType;
-        ToolModel toolModel = getTool(ToolType.BACKGROUND);
+        ToolModel toolBackground = getTool(ToolType.BACKGROUND);
+        ToolModel toolCrop = getTool(ToolType.CROP);
         if (mPickerType == PickerType.CANVAS) {
-            if (toolModel == null) {
+            if (toolCrop != null) {
+                int cropToolPosition = getToolPosition(ToolType.CROP);
+                if (cropToolPosition != -1) {
+                    mToolList.remove(cropToolPosition);
+                }
+            }
+            if (toolBackground == null) {
                 mToolList.add(0, new ToolModel(ToolType.BACKGROUND, R.drawable.ic_background));
             }
         } else {
-            if (toolModel != null) {
-                int toolPosition = getToolPosition(ToolType.BACKGROUND);
-                if (toolPosition != -1) {
-                    mToolList.remove(toolPosition);
+            if (toolBackground != null) {
+                int backgroundToolPosition = getToolPosition(ToolType.BACKGROUND);
+                if (backgroundToolPosition != -1) {
+                    mToolList.remove(backgroundToolPosition);
                 }
+            }
+            if (toolCrop == null) {
+                mToolList.add(0, new ToolModel(ToolType.CROP, R.drawable.ic_crop));
             }
         }
         notifyDataSetChanged();
