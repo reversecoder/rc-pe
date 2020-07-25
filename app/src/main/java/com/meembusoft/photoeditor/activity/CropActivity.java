@@ -9,6 +9,7 @@ import android.graphics.PathEffect;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -50,6 +51,7 @@ public class CropActivity extends BaseActivity {
 
         cropView = findViewById(R.id.crop_view);
         Uri imageUri = getIntent().getParcelableExtra(IMAGE_URI);
+        Log.d(TAG, "imageUri>> " + imageUri);
         cropView.setImageUri(imageUri);
 
         cropView.configureOverlay().setCropShape(new CropIwaRectShape(cropView.configureOverlay())).apply();

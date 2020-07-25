@@ -305,8 +305,9 @@ public class EditImageActivity extends BaseActivity implements OnPhotoEditorList
                 break;
 
             case R.id.imgCamera:
-                Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
-                startActivityForResult(cameraIntent, CAMERA_REQUEST);
+//                Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+//                startActivityForResult(cameraIntent, CAMERA_REQUEST);
+                dispatchTakePictureIntent();
                 break;
 
             case R.id.imgGallery:
@@ -393,20 +394,24 @@ public class EditImageActivity extends BaseActivity implements OnPhotoEditorList
         if (resultCode == RESULT_OK) {
             switch (requestCode) {
                 case CAMERA_REQUEST:
-                    imageUri = data.getData();
-                    mPhotoEditor.clearAllViews(true);
-                    Bitmap photo = (Bitmap) data.getExtras().get("data");
-                    mPhotoEditorView.getSource().setImageBitmap(photo);
-                    mPickerType = PickerType.CAMERA;
-                    mEditingToolsAdapter.setPickerType(mPickerType);
+                    try {
+                        Log.d(TAG, "onActivityResult>>CAMERA_REQUEST>>imageUri: " + imageUri);
+                        mPhotoEditor.clearAllViews(true);
+                        Bitmap cameraBitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), imageUri);
+                        mPhotoEditorView.getSource().setImageBitmap(cameraBitmap);
+                        mPickerType = PickerType.CAMERA;
+                        mEditingToolsAdapter.setPickerType(mPickerType);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                     break;
                 case PICK_REQUEST:
                     try {
                         imageUri = data.getData();
+                        Log.d(TAG, "onActivityResult>>PICK_REQUEST>>imageUri: " + imageUri);
                         mPhotoEditor.clearAllViews(true);
-                        Uri uri = data.getData();
-                        Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
-                        mPhotoEditorView.getSource().setImageBitmap(bitmap);
+                        Bitmap galleryBitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), imageUri);
+                        mPhotoEditorView.getSource().setImageBitmap(galleryBitmap);
                         mPickerType = PickerType.GALLERY;
                         mEditingToolsAdapter.setPickerType(mPickerType);
                     } catch (IOException e) {
@@ -699,5 +704,52 @@ public class EditImageActivity extends BaseActivity implements OnPhotoEditorList
     protected void onDestroy() {
         super.onDestroy();
         cropResultReceiver.unregister(EditImageActivity.this);
+    }
+
+    /*
+     * Camera
+     * */
+    private File createImageFile() throws IOException {
+        // Create an image file name
+        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+        String imageFileName = "JPEG_" + timeStamp + "_";
+        File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+        File image = File.createTempFile(
+                imageFileName,  /* prefix */
+                ".jpg",         /* suffix */
+                storageDir      /* directory */
+        );
+        return image;
+    }
+
+    private void dispatchTakePictureIntent() {
+        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        // Ensure that there's a camera activity to handle the intent
+        if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
+            // Create the File where the photo should go
+            File photoFile = null;
+            try {
+                photoFile = createImageFile();
+
+                // Continue only if the File was successfully created
+                if (photoFile != null) {
+                    imageUri = FileProvider.getUriForFile(EditImageActivity.this,
+                            EditImageActivity.this.getPackageName() + ".fileprovider",
+                            photoFile);
+                    takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
+                    startActivityForResult(takePictureIntent, CAMERA_REQUEST);
+                }
+            } catch (IOException ex) {
+                // Error occurred while creating the File
+            }
+        }
+    }
+
+    private void galleryAddPic(String currentPhotoPath) {
+        Intent mediaScanIntent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
+        File f = new File(currentPhotoPath);
+        Uri contentUri = Uri.fromFile(f);
+        mediaScanIntent.setData(contentUri);
+        this.sendBroadcast(mediaScanIntent);
     }
 }
