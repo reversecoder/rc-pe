@@ -370,8 +370,11 @@ public class EditImageActivity extends BaseActivity implements OnPhotoEditorList
                     public void onSuccess(@NonNull String imagePath) {
                         hideLoading();
                         showSnackbar("Image Saved Successfully");
-                        mSaveImageUri = Uri.fromFile(new File(imagePath));
+                        imageUri = mSaveImageUri = Uri.fromFile(new File(imagePath));
                         mPhotoEditorView.getSource().setImageURI(mSaveImageUri);
+
+                        // Insert to the gallery
+                        insertImageToGallery(imagePath);
                     }
 
                     @Override
@@ -744,7 +747,7 @@ public class EditImageActivity extends BaseActivity implements OnPhotoEditorList
         }
     }
 
-    private void galleryAddPic(String currentPhotoPath) {
+    private void insertImageToGallery(String currentPhotoPath) {
         Intent mediaScanIntent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
         File f = new File(currentPhotoPath);
         Uri contentUri = Uri.fromFile(f);

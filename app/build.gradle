@@ -28,7 +28,7 @@ android {
         vectorDrawables.useSupportLibrary = true
 
         // Define res values
-        resValue 'string', 'app_name', 'Post Creator'
+        resValue 'string', 'app_name', 'PhotoEditor'
 
         // Secured information
         buildConfigField "String", "ENCRYPTED_SUPER_USER_PASSWORD", "\"ZGljb3N0YTAxMQ==\""//dicosta011
