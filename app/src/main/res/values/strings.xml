@@ -1,5 +1,4 @@
 <resources>
-    <string name="app_name">Photo Editor</string>
     <string name="label_background">Background</string>
     <string name="label_crop">Crop</string>
     <string name="label_brush">Brush</string>
