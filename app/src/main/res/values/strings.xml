@@ -19,4 +19,9 @@
     <string name="text_default_water_mark">পিংনা, সরিষাবাড়ী, জামালপুর</string>
     <string name="text_default_seal">MeembuSoft</string>
     <string name="text_done">Done</string>
+
+    <string name="text_outside_circle_button_text_normal">Text Outside Circle Button(Normal)</string>
+    <string name="text_inside_circle_button_text_normal">Text Inside Circle Button(Normal)</string>
+    <string name="text_ham_button_text_normal">Ham Button Text(Normal)</string>
+    <string name="text_ham_button_sub_text_normal">Ham Button Sub Text(Normal)</string>
 </resources>

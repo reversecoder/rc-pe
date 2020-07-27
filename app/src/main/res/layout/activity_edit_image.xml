@@ -8,7 +8,6 @@
     android:background="@android:color/black"
     app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline"
         android:layout_width="wrap_content"
@@ -22,6 +21,20 @@
         android:layout_height="0dp"
         app:layout_constraintBottom_toTopOf="@+id/rvConstraintTools"
         app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.nightonke.boommenu.BoomMenuButton
+        android:id="@+id/bmb_menu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:bmb_buttonEnum="simpleCircle"
+        app:bmb_backgroundEffect="false"
+        app:bmb_dotRadius="5dp"
+        app:bmb_buttonPlaceEnum="buttonPlace_custom"
+        app:bmb_highlightedColor="@android:color/transparent"
+        app:bmb_normalColor="@android:color/transparent"
+        app:bmb_piecePlaceEnum="piecePlace_dot_3_3"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

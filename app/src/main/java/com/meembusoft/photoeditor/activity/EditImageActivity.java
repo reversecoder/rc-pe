@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.graphics.PointF;
 import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
@@ -44,6 +45,9 @@ import com.meembusoft.photoeditor.tools.EditingToolsAdapter;
 import com.meembusoft.photoeditor.tools.PickerType;
 import com.meembusoft.photoeditor.tools.ToolType;
 import com.meembusoft.photoeditor.util.AppUtil;
+import com.meembusoft.photoeditor.util.BuilderManager;
+import com.nightonke.boommenu.BoomMenuButton;
+import com.nightonke.boommenu.Util;
 import com.skydoves.colorpickerview.ColorEnvelope;
 import com.skydoves.colorpickerview.ColorPickerDialog;
 import com.skydoves.colorpickerview.ColorPickerView;
@@ -97,7 +101,6 @@ public class EditImageActivity extends BaseActivity implements OnPhotoEditorList
     @VisibleForTesting
     Uri mSaveImageUri;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -105,6 +108,7 @@ public class EditImageActivity extends BaseActivity implements OnPhotoEditorList
         setContentView(R.layout.activity_edit_image);
 
         initViews();
+        initializeBmb2();
 
         handleIntentImage(mPhotoEditorView.getSource());
 
@@ -753,5 +757,15 @@ public class EditImageActivity extends BaseActivity implements OnPhotoEditorList
         Uri contentUri = Uri.fromFile(f);
         mediaScanIntent.setData(contentUri);
         this.sendBroadcast(mediaScanIntent);
+    }
+
+    private void initializeBmb2() {
+        BoomMenuButton bmb = (BoomMenuButton) findViewById(R.id.bmb_menu);
+        for (int i = 0; i < bmb.getPiecePlaceEnum().pieceNumber(); i++)
+            bmb.addBuilder(BuilderManager.getSimpleCircleButtonBuilder());
+
+        bmb.getCustomButtonPlacePositions().add(new PointF(Util.dp2px(-80), Util.dp2px(-80)));
+        bmb.getCustomButtonPlacePositions().add(new PointF(0, 0));
+        bmb.getCustomButtonPlacePositions().add(new PointF(Util.dp2px(+80), Util.dp2px(+80)));
     }
 }
