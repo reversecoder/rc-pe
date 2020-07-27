@@ -2,5 +2,5 @@ include ':app',
         ':library:photoeditor',
         ':library:colorpickerview',
         ':library:pdialog',
-        ':library:cropiwa'
-//Linese
+        ':library:cropiwa',
+        ':library:boommenu'

@@ -126,6 +126,7 @@ dependencies {
     implementation project(':library:colorpickerview')
     implementation project(':library:pdialog')
     implementation project(':library:cropiwa')
+    implementation project(':library:boommenu')
 
     // Test library
     testImplementation 'junit:junit:4.13'
