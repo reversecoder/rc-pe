@@ -43,6 +43,14 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
 
+        <activity
+            android:name="com.meembusoft.photoeditor.activity.SettingsActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name="com.meembusoft.photoeditor.activity.GalleryActivity"
+            android:screenOrientation="portrait" />
+
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />

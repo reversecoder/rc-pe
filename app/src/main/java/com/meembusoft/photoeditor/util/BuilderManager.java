@@ -1,12 +1,17 @@
 package com.meembusoft.photoeditor.util;
 
+import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Rect;
+import android.os.Handler;
 import android.util.Pair;
 
 import com.meembusoft.photoeditor.R;
+import com.meembusoft.photoeditor.activity.GalleryActivity;
 import com.nightonke.boommenu.BoomButtons.ButtonPlaceEnum;
 import com.nightonke.boommenu.BoomButtons.HamButton;
+import com.nightonke.boommenu.BoomButtons.OnBMClickListener;
 import com.nightonke.boommenu.BoomButtons.SimpleCircleButton;
 import com.nightonke.boommenu.BoomButtons.TextInsideCircleButton;
 import com.nightonke.boommenu.BoomButtons.TextOutsideCircleButton;
@@ -37,10 +42,30 @@ public class BuilderManager {
         return imageResources[imageResourceIndex++];
     }
 
-    public static SimpleCircleButton.Builder getSimpleCircleButtonBuilder() {
+    public static SimpleCircleButton.Builder getSimpleCircleButtonBuilder(Context context) {
         return new SimpleCircleButton.Builder()
                 .imagePadding(new Rect(Util.dp2px(10), Util.dp2px(10), Util.dp2px(10), Util.dp2px(10)))
-                .normalImageRes(getImageResource());
+                .normalImageRes(getImageResource())
+                .listener(new OnBMClickListener() {
+                    @Override
+                    public void onBoomButtonClick(int index) {
+                        switch (index) {
+                            case 0:
+                                new Handler().postDelayed(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        Intent intentGallery = new Intent(context, GalleryActivity.class);
+                                        context.startActivity(intentGallery);
+                                    }
+                                }, 500);
+                                break;
+                            case 1:
+                                break;
+                            case 2:
+                                break;
+                        }
+                    }
+                });
     }
 
     static SimpleCircleButton.Builder getSquareSimpleCircleButtonBuilder() {

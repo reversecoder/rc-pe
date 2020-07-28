@@ -3,4 +3,5 @@ include ':app',
         ':library:colorpickerview',
         ':library:pdialog',
         ':library:cropiwa',
-        ':library:boommenu'
+        ':library:boommenu',
+        ':library:gestureview'

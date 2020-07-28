@@ -762,7 +762,7 @@ public class EditImageActivity extends BaseActivity implements OnPhotoEditorList
     private void initializeBmb2() {
         BoomMenuButton bmb = (BoomMenuButton) findViewById(R.id.bmb_menu);
         for (int i = 0; i < bmb.getPiecePlaceEnum().pieceNumber(); i++)
-            bmb.addBuilder(BuilderManager.getSimpleCircleButtonBuilder());
+            bmb.addBuilder(BuilderManager.getSimpleCircleButtonBuilder(EditImageActivity.this));
 
         bmb.getCustomButtonPlacePositions().add(new PointF(Util.dp2px(-80), Util.dp2px(-80)));
         bmb.getCustomButtonPlacePositions().add(new PointF(0, 0));

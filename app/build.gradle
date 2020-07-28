@@ -121,12 +121,17 @@ dependencies {
     implementation "androidx.constraintlayout:constraintlayout:$androidXConstraintLayoutVersion"
     implementation "androidx.cardview:cardview:$androidXCardViewVersion"
 
+    // Image loading
+    implementation "com.github.bumptech.glide:glide:$glideVersion"
+    annotationProcessor "com.github.bumptech.glide:compiler:$glideVersion"
+
     // Library projects
     implementation project(':library:photoeditor')
     implementation project(':library:colorpickerview')
     implementation project(':library:pdialog')
     implementation project(':library:cropiwa')
     implementation project(':library:boommenu')
+    implementation project(':library:gestureview')
 
     // Test library
     testImplementation 'junit:junit:4.13'
@@ -135,6 +140,3 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
     androidTestImplementation 'androidx.test.espresso:espresso-contrib:3.2.0'
 }
-
-// make sure this line comes *after* you apply the Android plugin
-//apply plugin: 'com.getkeepsafe.dexcount'
