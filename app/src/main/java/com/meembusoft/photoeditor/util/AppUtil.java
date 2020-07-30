@@ -5,7 +5,9 @@ import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.net.Uri;
+import android.os.Environment;
 import android.text.TextUtils;
+import android.util.Log;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
@@ -13,7 +15,12 @@ import com.bumptech.glide.RequestBuilder;
 import com.bumptech.glide.RequestManager;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
+import com.meembusoft.photoeditor.Photo;
 import com.meembusoft.photoeditor.R;
+
+import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
 public class AppUtil {
 
@@ -110,5 +117,20 @@ public class AppUtil {
 
         } catch (Exception e) {
         }
+    }
+
+    public static List<Photo> getAllPhotos(String folderPath) {
+        List<Photo> photos = new ArrayList<>();
+        Log.d("Files", "Path: " + folderPath);
+        File f = new File(folderPath);
+        File file[] = f.listFiles();
+        if (file.length > 0) {
+            Log.d("Files", "Size: " + file.length);
+            for (int i = 0; i < file.length; i++) {
+                photos.add(new Photo(Uri.fromFile(file[i])));
+                Log.d("Files", "FileName:" + file[i].getName());
+            }
+        }
+        return photos;
     }
 }

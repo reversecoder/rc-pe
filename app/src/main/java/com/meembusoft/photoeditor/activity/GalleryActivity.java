@@ -1,6 +1,5 @@
 package com.meembusoft.photoeditor.activity;
 
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.view.View;
@@ -22,7 +21,6 @@ import com.meembusoft.photoeditor.base.BaseActivity;
 import com.meembusoft.photoeditor.util.AppUtil;
 
 import java.io.File;
-import java.util.ArrayList;
 import java.util.List;
 
 public class GalleryActivity extends BaseActivity {
@@ -48,12 +46,8 @@ public class GalleryActivity extends BaseActivity {
         setContentView(R.layout.activity_gallery);
 
         // Setting new photos list
-        String rootPath = Environment.getExternalStorageDirectory() + File.separator + AppUtil.getApplicationName(GalleryActivity.this);
-        // image naming and path  to include sd card  appending name you choose for file
-        String filePath = rootPath + File.separator + "PhotoEditor_29-Jul-2020, Wednesday, 08:17:50 AM.png";
-        List<Photo> photos = new ArrayList<Photo>() {{
-            add(new Photo( Uri.fromFile(new File(filePath))));
-        }};
+        String folderPath = Environment.getExternalStorageDirectory() + File.separator + AppUtil.getApplicationName(GalleryActivity.this);
+        List<Photo> photos = AppUtil.getAllPhotos(folderPath);
 
         // Initializing ListView
         list = findViewById(R.id.recycler_list);
