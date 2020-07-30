@@ -113,6 +113,4 @@
         <attr name="gest_aspect" format="reference|float" />
     </declare-styleable>
 
-    <attr name="aspect" />
-
 </resources>

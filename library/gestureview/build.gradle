@@ -10,19 +10,15 @@ android {
         versionCode 2
         versionName "2.6.0"
     }
+
+    compileOptions {
+        sourceCompatibility = '1.8'
+        targetCompatibility = '1.8'
+    }
 }
 
 dependencies {
-    implementation "androidx.appcompat:appcompat:$androidXAppCompatVersion"
     compileOnly 'androidx.annotation:annotation:1.1.0'
     compileOnly 'androidx.viewpager:viewpager:1.0.0'
     compileOnly 'androidx.recyclerview:recyclerview:1.1.0'
-
-    // Image loading
-    implementation "com.github.bumptech.glide:glide:$glideVersion"
-    annotationProcessor "com.github.bumptech.glide:compiler:$glideVersion"
-
-    // Image viewer
-    implementation 'com.alexvasilkov:android-commons:2.0.2'
-    implementation 'com.alexvasilkov:events:1.0.0'
 }

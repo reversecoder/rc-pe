@@ -125,6 +125,10 @@ dependencies {
     implementation "com.github.bumptech.glide:glide:$glideVersion"
     annotationProcessor "com.github.bumptech.glide:compiler:$glideVersion"
 
+    // View helper
+    implementation 'com.alexvasilkov:android-commons:2.0.2'
+    implementation 'com.alexvasilkov:events:1.0.0'
+
     // Library projects
     implementation project(':library:photoeditor')
     implementation project(':library:colorpickerview')

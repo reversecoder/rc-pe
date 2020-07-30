@@ -4,6 +4,16 @@ import android.content.Context;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.net.Uri;
+import android.text.TextUtils;
+import android.widget.ImageView;
+
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.RequestBuilder;
+import com.bumptech.glide.RequestManager;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.request.RequestOptions;
+import com.meembusoft.photoeditor.R;
 
 public class AppUtil {
 
@@ -38,5 +48,67 @@ public class AppUtil {
             ai = null;
         }
         return (String) (ai != null ? pm.getApplicationLabel(ai) : "(unknown)");
+    }
+
+    public static <T> void loadImage(Context context, ImageView imageView, T imageSource, boolean isGif, boolean isRoundedImage, boolean isPlaceHolder) {
+        try {
+            RequestManager requestManager = Glide.with(context);
+            RequestBuilder requestBuilder = isGif ? requestManager.asGif() : requestManager.asBitmap();
+
+            //Dynamic loading without caching while update need for each time loading
+//            requestOptions.signature(new ObjectKey(System.currentTimeMillis()));
+            //If Cache needed
+//            requestOptions.diskCacheStrategy(DiskCacheStrategy.AUTOMATIC);
+
+            //If Cache needed
+            RequestOptions requestOptionsCache = new RequestOptions();
+            requestOptionsCache.diskCacheStrategy(DiskCacheStrategy.AUTOMATIC);
+            requestBuilder.apply(requestOptionsCache);
+
+            //For placeholder
+            if (isPlaceHolder) {
+                RequestOptions requestOptionsPlaceHolder = new RequestOptions();
+                requestOptionsPlaceHolder.placeholder(R.mipmap.ic_launcher);
+                requestBuilder.apply(requestOptionsPlaceHolder);
+            }
+
+            //For error
+            RequestOptions requestOptionsError = new RequestOptions();
+            requestOptionsError.error(R.drawable.ic_error_unknown);
+            requestBuilder.apply(requestOptionsError);
+
+            //For rounded image
+            if (isRoundedImage) {
+                RequestOptions requestOptionsRounded = new RequestOptions();
+                requestOptionsRounded.circleCrop();
+                requestOptionsRounded.autoClone();
+                requestBuilder.apply(requestOptionsRounded);
+            }
+
+            //Generic image source
+            T mImageSource = null;
+            if (imageSource instanceof String) {
+                if (!TextUtils.isEmpty((String) imageSource)) {
+                    mImageSource = imageSource;
+                }
+            } else if (imageSource instanceof Integer) {
+                mImageSource = imageSource;
+            } else if (imageSource instanceof Uri) {
+                mImageSource = imageSource;
+            }
+            requestBuilder.load((mImageSource != null) ? mImageSource : R.drawable.ic_error_link);
+
+            //Load into image view
+            requestBuilder.into(imageView);
+
+//            Glide
+//                    .with(context)
+//                    .asBitmap()
+//                    .load((mImageSource != null) ? mImageSource : R.mipmap.ic_launcher)
+//                    .apply(requestOptions)
+//                    .into(imageView);
+
+        } catch (Exception e) {
+        }
     }
 }
