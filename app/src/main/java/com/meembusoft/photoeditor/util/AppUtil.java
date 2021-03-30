@@ -124,7 +124,7 @@ public class AppUtil {
         Log.d("Files", "Path: " + folderPath);
         File f = new File(folderPath);
         File file[] = f.listFiles();
-        if (file.length > 0) {
+        if (file != null && file.length > 0) {
             Log.d("Files", "Size: " + file.length);
             for (int i = 0; i < file.length; i++) {
                 photos.add(new Photo(Uri.fromFile(file[i])));
