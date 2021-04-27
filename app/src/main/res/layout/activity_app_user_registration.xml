@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimaryDark"
+    android:fitsSystemWindows="true"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
+    android:orientation="vertical">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/color_grey_800">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="15dp"
+            android:background="@color/color_grey_800"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/iv_app_logo"
+                android:layout_width="@dimen/dp_150"
+                android:layout_height="@dimen/dp_150"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="50dp"
+                android:background="@mipmap/ic_launcher_round" />
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/dp_20"
+                android:background="@drawable/shape_rectangle_border_primary_bg_grey"
+                app:cardCornerRadius="0dp"
+                card_view:cardElevation="10dp">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/color_grey_800">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/shape_rectangle_border_primary_bg_grey">
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="60dp"
+                            android:layout_toLeftOf="@id/iv_accepted_phone"
+                            android:background="?attr/selectableItemBackground">
+
+                            <ImageView
+                                android:id="@+id/iv_phone"
+                                android:layout_width="20dp"
+                                android:layout_height="20dp"
+                                android:layout_alignParentLeft="true"
+                                android:layout_centerVertical="true"
+                                android:layout_marginLeft="10dp"
+                                android:background="@drawable/vector_phone_empty_white" />
+
+                            <me.jerryhanks.countrypicker.PhoneNumberEditTextWithMask
+                                android:id="@+id/edt_phone"
+                                android:layout_width="match_parent"
+                                android:layout_height="80dp"
+                                android:layout_toRightOf="@+id/iv_phone"
+                                android:background="@null"
+                                android:hint="1XXX-XXXXXX"
+                                android:paddingLeft="@dimen/dp_10"
+                                android:paddingRight="@dimen/dp_10"
+                                android:textColor="@color/white"
+                                android:textColorHint="@color/white50"
+                                android:textSize="@dimen/sp_16"
+                                app:cp_autoDetectCountry="true"
+                                app:cp_defaultCountryName="BD"
+                                app:cp_fastScrollerBubbleColor="@color/colorPrimary"
+                                app:cp_fastScrollerBubbleTextAppearance="@style/TextAppearance.AppCompat.Medium"
+                                app:cp_fastScrollerHandleColor="@color/colorAccent"
+                                app:cp_mask="9999-999999"
+                                app:cp_rememberLastSelection="true"
+                                app:cp_setCountryCodeBorder="false"
+                                app:cp_showCountryCodeInView="true"
+                                app:cp_showCountryDialCodeInView="true"
+                                app:cp_showFastScroll="true"
+                                app:cp_showFullScreeDialog="true" />
+
+                        </RelativeLayout>
+
+                        <ImageView
+                            android:id="@+id/iv_accepted_phone"
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerVertical="true"
+                            android:layout_marginRight="10dp"
+                            android:background="@drawable/vector_accepted"
+                            android:visibility="gone" />
+
+                    </RelativeLayout>
+
+                </RelativeLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/dp_20"
+                android:background="@drawable/shape_rectangle_border_primary_bg_grey"
+                app:cardCornerRadius="0dp"
+                card_view:cardElevation="10dp">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/color_grey_800">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="60dp"
+                        android:background="@drawable/shape_rectangle_border_primary_bg_grey"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:layout_marginLeft="@dimen/dp_10"
+                            android:background="@drawable/vector_name_empty_white" />
+
+                        <EditText
+                            android:id="@+id/edt_name"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@null"
+                            android:gravity="center_vertical"
+                            android:hint="@string/view_name"
+                            android:paddingLeft="@dimen/dp_10"
+                            android:paddingRight="@dimen/dp_10"
+                            android:text=""
+                            android:textColor="@color/white"
+                            android:textColorHint="@color/white50"
+                            android:textSize="@dimen/sp_16" />
+
+                    </LinearLayout>
+
+                </RelativeLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/dp_50"
+                android:background="@drawable/shape_rectangle_border_primary_bg_grey"
+                app:cardCornerRadius="0dp"
+                card_view:cardElevation="10dp">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/color_grey_800">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/shape_rectangle_border_primary_bg_grey">
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="60dp"
+                            android:layout_toLeftOf="@id/iv_accepted_email"
+                            android:background="?attr/selectableItemBackground">
+
+                            <ImageView
+                                android:id="@+id/iv_email"
+                                android:layout_width="20dp"
+                                android:layout_height="20dp"
+                                android:layout_alignParentLeft="true"
+                                android:layout_centerVertical="true"
+                                android:layout_marginLeft="10dp"
+                                android:background="@drawable/vector_email_empty_white" />
+
+                            <EditText
+                                android:id="@+id/edt_email"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_centerVertical="true"
+                                android:layout_toRightOf="@+id/iv_email"
+                                android:background="@null"
+                                android:gravity="center_vertical"
+                                android:hint="@string/view_email_optional"
+                                android:inputType="textEmailAddress"
+                                android:paddingLeft="@dimen/dp_10"
+                                android:paddingRight="@dimen/dp_10"
+                                android:textColor="@color/white"
+                                android:textColorHint="@color/white50"
+                                android:textSize="@dimen/sp_16" />
+
+                        </RelativeLayout>
+
+                        <ImageView
+                            android:id="@+id/iv_accepted_email"
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerVertical="true"
+                            android:layout_marginRight="10dp"
+                            android:background="@drawable/vector_accepted"
+                            android:visibility="gone" />
+
+                    </RelativeLayout>
+
+                </RelativeLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <Button
+                android:id="@+id/btn_register_user"
+                android:layout_width="160dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_marginBottom="@dimen/dp_20"
+                android:background="@drawable/selector_oval_border_white_bg_transparent"
+                android:padding="@dimen/dp_5"
+                android:text="@string/view_register_user"
+                android:textColor="@color/white"
+                android:textSize="@dimen/sp_18"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</LinearLayout>

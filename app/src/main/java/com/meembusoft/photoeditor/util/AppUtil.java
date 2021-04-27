@@ -24,6 +24,11 @@ import java.util.List;
 
 public class AppUtil {
 
+    public static boolean isDebug(Context context) {
+//        return BuildConfig.DEBUG;
+        return ((context.getApplicationInfo().flags & ApplicationInfo.FLAG_DEBUGGABLE) != 0);
+    }
+
     /**
      * Get application version.
      *

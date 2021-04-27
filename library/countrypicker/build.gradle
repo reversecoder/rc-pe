@@ -1,0 +1,33 @@
+apply plugin: 'com.android.library'
+
+android {
+    compileSdkVersion appCompileSdkVersion
+//    buildToolsVersion appBuildToolsVersion
+
+    defaultConfig {
+        minSdkVersion appMinSdkVersion
+        targetSdkVersion appTargetSdkVersion
+        versionCode 1
+        versionName "1.0"
+        vectorDrawables.useSupportLibrary = true
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    implementation "androidx.appcompat:appcompat:$androidXAppCompatVersion"
+    implementation "com.google.android.material:material:$materialVersion"
+    implementation "androidx.constraintlayout:constraintlayout:$androidXConstraintLayoutVersion"
+    implementation "com.afollestad:sectioned-recyclerview:$sectionedRecyclerViewVersion"
+    implementation "com.futuremind.recyclerfastscroll:fastscroll:$fastScrollVersion"
+//    implementation "io.michaelrocks:libphonenumber-android:${lib_phonenumber_version}"
+    implementation "com.google.code.gson:gson:$gsonVersion"
+}

@@ -20,4 +20,82 @@
     <color name="tool_bg">#151414</color>
     <color name="semi_black_transparent">#99000000</color>
     <color name="colorAlphaShadeBlack">#99000000</color>
+
+<!--    <color name="colorPrimary">#f98c6a</color>
+    <color name="colorPrimaryDark">#ff5722</color>
+    <color name="colorAccent">#FF4081</color>-->
+
+    <color name="textColorPrimary">#212121</color>
+    <color name="textColorSecondary">#757575</color>
+
+    <color name="app_primary_color">#f98c6a</color>
+    <color name="colorDivider">#BDBDBD</color>
+    <color name="colorDividerBlack">#212121</color>
+    <color name="windowBackground">#FAFAFA</color>
+    <color name="colorAlphaShade">#66000000</color>
+    <color name="colorAlphaShadeLight">#22000000</color>
+    <color name="colorWhiteBG">#F3F7F5</color>
+    <color name="colorMenuBG">#F3F2F8</color>
+    <color name="whiteColor">#FFFFFF</color>
+
+    <color name="color_orange_500">#FF9800</color>
+    <color name="color_orange_600">#FB8C00</color>
+    <color name="color_orange_700">#F57C00</color>
+    <color name="color_orange_800">#EF6C00</color>
+    <color name="color_orange_900">#E65100</color>
+
+    <color name="color_grey_100">#F5F5F5</color>
+    <color name="color_grey_200">#EEEEEE</color>
+    <color name="color_grey_300">#E0E0E0</color>
+    <color name="color_grey_400">#BDBDBD</color>
+    <color name="color_grey_500">#9E9E9E</color>
+    <color name="color_grey_600">#757575</color>
+    <color name="color_grey_700">#616161</color>
+    <color name="color_grey_800">#424242</color>
+    <color name="color_grey_900">#212121</color>
+    <color name="color_black">#000000</color>
+    <color name="color_black_two">#333333</color>
+    <color name="color_white">#FFFFFF</color>
+
+    <!-- BLACK ALPHA -->
+    <color name="black05">#0d000000</color>
+    <color name="black10">#1a000000</color>
+    <color name="black15">#26000000</color>
+    <color name="black20">#33000000</color>
+    <color name="black25">#40000000</color>
+    <color name="black30">#4d000000</color>
+    <color name="black35">#59000000</color>
+    <color name="black40">#66000000</color>
+    <color name="black45">#73000000</color>
+    <color name="black50">#80000000</color>
+    <color name="black55">#8c000000</color>
+    <color name="black60">#99000000</color>
+    <color name="black65">#a6000000</color>
+    <color name="black70">#b3000000</color>
+    <color name="black75">#bf000000</color>
+    <color name="black80">#cc000000</color>
+    <color name="black85">#d9000000</color>
+    <color name="black90">#e6000000</color>
+    <color name="black95">#f2000000</color>
+    <!-- WHITE ALPHA -->
+    <color name="white05">#0dffffff</color>
+    <color name="white10">#1affffff</color>
+    <color name="white15">#26ffffff</color>
+    <color name="white20">#33ffffff</color>
+    <color name="white25">#40ffffff</color>
+    <color name="white30">#4dffffff</color>
+    <color name="white35">#59ffffff</color>
+    <color name="white40">#66ffffff</color>
+    <color name="white45">#73ffffff</color>
+    <color name="white50">#80ffffff</color>
+    <color name="white55">#8cffffff</color>
+    <color name="white60">#99ffffff</color>
+    <color name="white65">#a6ffffff</color>
+    <color name="white70">#b3ffffff</color>
+    <color name="white75">#bfffffff</color>
+    <color name="white80">#ccffffff</color>
+    <color name="white85">#d9ffffff</color>
+    <color name="white90">#e6ffffff</color>
+    <color name="white95">#f2ffffff</color>
+    <color name="white100">#ffffffff</color>
 </resources>

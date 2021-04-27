@@ -217,6 +217,8 @@
 #-keep class com.meembusoft.iot.retrofit.** {*;}
 -keep class com.reversecoder.library.event.** {*;}
 -keep class com.reversecoder.library.event.** {*;}
+-keep class me.jerryhanks.countrypicker.Country {*;}
+-keep class me.jerryhanks.countrypicker.Util {*;}
 
 ########## Apache commons ##########
 -keep class org.apache.commons.** {*;}

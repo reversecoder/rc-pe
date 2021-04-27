@@ -24,4 +24,14 @@
     <string name="text_inside_circle_button_text_normal">Text Inside Circle Button(Normal)</string>
     <string name="text_ham_button_text_normal">Ham Button Text(Normal)</string>
     <string name="text_ham_button_sub_text_normal">Ham Button Sub Text(Normal)</string>
+
+    <string name="view_name">Name</string>
+    <string name="view_email">Email</string>
+    <string name="view_email_optional">Email (Optional)</string>
+    <string name="view_register_user">Register User</string>
+    <string name="toast_please_input_your_mobile_no">Please input mobile number</string>
+    <string name="toast_please_input_valid_mobile_no">Please input valid mobile number</string>
+    <string name="toast_please_input_your_email">Please input your email</string>
+    <string name="toast_please_input_valid_email">Please input valid email</string>
+    <string name="toast_please_input_your_name">Please input your name</string>
 </resources>

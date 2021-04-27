@@ -136,6 +136,7 @@ dependencies {
     implementation project(':library:cropiwa')
     implementation project(':library:boommenu')
     implementation project(':library:gestureview')
+    implementation project(':library:countrypicker')
 
     // Test library
     testImplementation 'junit:junit:4.13.2'

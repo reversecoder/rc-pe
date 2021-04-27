@@ -3,6 +3,9 @@ package com.meembusoft.photoeditor;
 import android.app.Application;
 import android.content.Context;
 
+import com.meembusoft.photoeditor.util.AppUtil;
+import com.meembusoft.photoeditor.util.Logger;
+
 /**
  * Created by Burhanuddin Rashid on 1/23/2018.
  */
@@ -14,6 +17,11 @@ public class PhotoApp extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        //Initialize logger
+        new Logger.Builder()
+                .isLoggable(AppUtil.isDebug(this))
+                .build();
+
         sPhotoApp = this;
      /*   FontRequest fontRequest = new FontRequest(
                 "com.google.android.gms.fonts",
