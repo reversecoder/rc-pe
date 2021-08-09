@@ -29,6 +29,11 @@ dependencies {
     // Water mark
     implementation 'com.huangyz0918:androidwm-light:0.1.2'
 
+    // Dynamic util
+    implementation 'com.pranavpandey.android:dynamic-utils:4.1.0'
+
+    implementation project(':library:sealview')
+
     androidTestImplementation('androidx.test.espresso:espresso-core:3.1.0', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })

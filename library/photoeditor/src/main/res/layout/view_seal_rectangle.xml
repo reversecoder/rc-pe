@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <com.meembusoft.sealview.RectangleSealView
+        android:id="@+id/rsv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="35dp"
+        android:layout_marginBottom="35dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        app:left_text=""
+        app:left_text_size="20sp"
+        app:right_text=""
+        app:right_text_size="12sp" />
+
+</LinearLayout>

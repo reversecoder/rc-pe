@@ -23,22 +23,22 @@
             android:name="com.meembusoft.photoeditor.activity.AppUserRegistrationActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar">
-            <intent-filter>
+            <!--<intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+            </intent-filter>-->
         </activity>
 
         <activity
             android:name="com.meembusoft.photoeditor.activity.EditImageActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar">
-<!--            <intent-filter>
+            <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>-->
+            </intent-filter>
             <intent-filter
                 android:label="@string/app_intent_name"
                 android:scheme="file"

@@ -138,7 +138,9 @@ public class EditImageActivity extends BaseActivity implements OnPhotoEditorList
                 //.setDefaultTextTypeface(mTextRobotoTf)
                 //.setDefaultEmojiTypeface(mEmojiTypeFace)
                 .setWatermark(getString(R.string.text_default_water_mark))
-                .setSeal(getString(R.string.text_default_seal))
+                .setTrademark(getString(R.string.text_default_trademark))
+                .setSealName(getString(R.string.text_default_seal_name_with_comma))
+                .setSealSubName(getString(R.string.text_default_seal_sub_name))
                 .setShadeColor(838860800)
                 .build(); // build photo editor sdk
         // Shadow color
@@ -551,6 +553,10 @@ public class EditImageActivity extends BaseActivity implements OnPhotoEditorList
             case WATERMARK:
                 Toast.makeText(EditImageActivity.this, "Coming soon", Toast.LENGTH_SHORT).show();
 //                mTxtCurrentTool.setText(R.string.label_watermark);
+                break;
+            case TRADEMARK:
+                Toast.makeText(EditImageActivity.this, "Coming soon", Toast.LENGTH_SHORT).show();
+                break;
             case SEAL:
                 Toast.makeText(EditImageActivity.this, "Coming soon", Toast.LENGTH_SHORT).show();
 //                mTxtCurrentTool.setText(R.string.label_seal);

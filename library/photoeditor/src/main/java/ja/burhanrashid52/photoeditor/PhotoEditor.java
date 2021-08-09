@@ -69,8 +69,8 @@ public class PhotoEditor implements BrushViewChangeListener {
     private Typeface mDefaultTextTypeface;
     private Typeface mDefaultEmojiTypeface;
     private int mShadeColor = 0;
-    private boolean isShadeApplied = false, isWatermarkApplied = false, isSealApplied = false;
-    private String mWaterMark = "", mSeal = "";
+    private boolean isShadeApplied = false, isWatermarkApplied = false, isTrademarkApplied = false, isSealApplied = false;
+    private String mWaterMark = "", mTrademark = "", mSealName = "", mSealSubName = "";
 
     private PhotoEditor(Builder builder) {
         this.context = builder.context;
@@ -83,7 +83,9 @@ public class PhotoEditor implements BrushViewChangeListener {
         this.mDefaultEmojiTypeface = builder.emojiTypeface;
         this.mShadeColor = builder.shadeColor;
         this.mWaterMark = builder.watermark;
-        this.mSeal = builder.seal;
+        this.mTrademark = builder.trademark;
+        this.mSealName = builder.sealName;
+        this.mSealSubName = builder.sealSubName;
         mLayoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         brushDrawingView.setBrushViewChangeListener(this);
         addedViews = new ArrayList<>();
@@ -584,6 +586,7 @@ public class PhotoEditor implements BrushViewChangeListener {
         if (isNewStart) {
             isWatermarkApplied = false;
             isShadeApplied = false;
+            isTrademarkApplied = false;
             isSealApplied = false;
         }
     }
@@ -705,15 +708,22 @@ public class PhotoEditor implements BrushViewChangeListener {
                                     updatedBitmap = BitmapManager.addShade(((updatedBitmap != null) ? updatedBitmap : drawingCache), mShadeColor);
                                     isShadeApplied = true;
                                 }
+                                // Trademark
+                                if (!isTrademarkApplied && !TextUtils.isEmpty(mTrademark)) {
+                                    updatedBitmap = BitmapManager.addTrademark(context, ((updatedBitmap != null) ? updatedBitmap : drawingCache), mTrademark, BitmapManager.TRADEMARK_POSITION.RIGHT_BOTTOM);
+                                    isTrademarkApplied = true;
+                                }
                                 // Seal
-                                if (!isSealApplied && !TextUtils.isEmpty(mSeal)) {
-                                    updatedBitmap = BitmapManager.addSeal(context, ((updatedBitmap != null) ? updatedBitmap : drawingCache), mSeal, BitmapManager.SEAL_POSITION.RIGHT_BOTTOM);
+                                if (!isSealApplied && !TextUtils.isEmpty(mSealName) && !TextUtils.isEmpty(mSealSubName)) {
+                                    updatedBitmap = BitmapManager.addSeal(context, ((updatedBitmap != null) ? updatedBitmap : drawingCache), mSealName, mSealSubName ,BitmapManager.SEAL_TYPE.RECTANGLE, BitmapManager.SEAL_POSITION.CENTER);
                                     isSealApplied = true;
                                 }
                                 // Write image
                                 if (updatedBitmap != null) {
+                                    Log.d(TAG, "updatedBitmap is null");
                                     updatedBitmap.compress(saveSettings.getCompressFormat(), saveSettings.getCompressQuality(), out);
                                 } else {
+                                    Log.d(TAG, "updatedBitmap is not null");
                                     drawingCache.compress(saveSettings.getCompressFormat(), saveSettings.getCompressQuality(), out);
                                 }
                             }
@@ -908,7 +918,7 @@ public class PhotoEditor implements BrushViewChangeListener {
         //By Default pinch zoom on text is enabled
         private boolean isTextPinchZoomable = true;
         private int shadeColor = 0;
-        private String watermark = "", seal = "";
+        private String watermark = "", trademark = "", sealName = "", sealSubName = "";
 
         /**
          * Building a PhotoEditor which requires a Context and PhotoEditorView
@@ -934,8 +944,18 @@ public class PhotoEditor implements BrushViewChangeListener {
             return this;
         }
 
-        public Builder setSeal(String seal) {
-            this.seal = seal;
+        public Builder setTrademark(String trademark) {
+            this.trademark = trademark;
+            return this;
+        }
+
+        public Builder setSealName(String sealName) {
+            this.sealName = sealName;
+            return this;
+        }
+
+        public Builder setSealSubName(String sealSubName) {
+            this.sealSubName = sealSubName;
             return this;
         }
 

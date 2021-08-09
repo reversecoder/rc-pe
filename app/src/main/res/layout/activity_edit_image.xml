@@ -44,7 +44,7 @@
         android:layout_height="wrap_content"
         android:background="@color/semi_black_transparent"
         android:padding="8dp"
-        android:src="@drawable/ic_undo"
+        app:srcCompat="@drawable/ic_undo"
         app:layout_constraintBottom_toTopOf="@+id/rvConstraintTools"
         app:layout_constraintEnd_toStartOf="@+id/imgRedo" />
 
@@ -54,7 +54,7 @@
         android:layout_height="wrap_content"
         android:background="@color/semi_black_transparent"
         android:padding="8dp"
-        android:src="@drawable/ic_redo"
+        app:srcCompat="@drawable/ic_redo"
         app:layout_constraintBottom_toTopOf="@+id/rvConstraintTools"
         app:layout_constraintEnd_toEndOf="parent" />
 
@@ -64,7 +64,7 @@
         android:layout_height="wrap_content"
         android:background="@color/semi_black_transparent"
         android:padding="8dp"
-        android:src="@drawable/ic_gallery"
+        app:srcCompat="@drawable/ic_gallery"
         app:layout_constraintBottom_toTopOf="@+id/rvConstraintTools"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -74,7 +74,7 @@
         android:layout_height="wrap_content"
         android:background="@color/semi_black_transparent"
         android:padding="8dp"
-        android:src="@drawable/ic_camera"
+        app:srcCompat="@drawable/ic_camera"
         app:layout_constraintBottom_toTopOf="@+id/rvConstraintTools"
         app:layout_constraintStart_toEndOf="@id/imgGallery" />
 
@@ -84,7 +84,7 @@
         android:layout_height="40dp"
         android:background="@color/semi_black_transparent"
         android:padding="8dp"
-        android:src="@drawable/ic_canvas"
+        app:srcCompat="@drawable/ic_canvas"
         app:layout_constraintBottom_toTopOf="@+id/rvConstraintTools"
         app:layout_constraintStart_toEndOf="@id/imgCamera" />
 
@@ -95,7 +95,7 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentLeft="true"
         android:layout_margin="8dp"
-        android:src="@drawable/ic_close"
+        app:srcCompat="@drawable/ic_close"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/guideline" />
@@ -145,7 +145,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
-        android:src="@drawable/ic_save"
+        app:srcCompat="@drawable/ic_save"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/guideline" />
@@ -156,7 +156,7 @@
         android:layout_height="wrap_content"
         android:background="@color/semi_black_transparent"
         android:padding="8dp"
-        android:src="@drawable/ic_share"
+        app:srcCompat="@drawable/ic_share"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="@+id/photoEditorView"
         app:layout_constraintEnd_toStartOf="@+id/imgUndo"

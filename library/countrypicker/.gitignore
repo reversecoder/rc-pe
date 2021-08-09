@@ -17,12 +17,12 @@ out/
 .gradle/
 .idea
 build/
-gradle
+#gradle
 androidTest/
 test/
 target/
-gradlew
-gradlew.bat
+#gradlew
+#gradlew.bat
 
 # Local configuration file (sdk path, etc)
 local.properties

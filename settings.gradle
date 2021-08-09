@@ -5,4 +5,5 @@ include ':app',
         ':library:cropiwa',
         ':library:boommenu',
         ':library:gestureview',
-        ':library:countrypicker'
+        ':library:countrypicker',
+        ':library:sealview'

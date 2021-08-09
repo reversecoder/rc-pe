@@ -23,9 +23,11 @@ import android.text.StaticLayout;
 import android.text.TextPaint;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Toast;
 
+import com.meembusoft.sealview.RectangleSealView;
 import com.watermark.androidwm_light.WatermarkBuilder;
 import com.watermark.androidwm_light.bean.WatermarkText;
 
@@ -48,7 +50,11 @@ public class BitmapManager {
 
     public enum SEAL_POSITION {LEFT_TOP, LEFT_CENTER, LEFT_BOTTOM, TOP_CENTER, RIGHT_TOP, RIGHT_CENTER, RIGHT_BOTTOM, BOTTOM_CENTER, CENTER}
 
+    public enum TRADEMARK_POSITION {LEFT_TOP, LEFT_CENTER, LEFT_BOTTOM, TOP_CENTER, RIGHT_TOP, RIGHT_CENTER, RIGHT_BOTTOM, BOTTOM_CENTER, CENTER}
+
     public enum TEXT_POSITION {CENTER, TOP, BOTTOM}
+
+    public enum SEAL_TYPE {RECTANGLE, CIRCLE}
 
     public static Bitmap cloneBitmap(Bitmap bitmap) {
         return bitmap.copy(bitmap.getConfig(), bitmap.isMutable());
@@ -127,7 +133,7 @@ public class BitmapManager {
         }
     }
 
-    public static Bitmap addSeal(Context gContext, Bitmap bitmap, String gText, SEAL_POSITION stampPosition) {
+    public static Bitmap addTrademark(Context gContext, Bitmap bitmap, String gText, TRADEMARK_POSITION trademarkPosition) {
         Resources resources = gContext.getResources();
         float scale = resources.getDisplayMetrics().density;
         Bitmap.Config bitmapConfig = bitmap.getConfig();
@@ -144,7 +150,7 @@ public class BitmapManager {
         Rect bounds = new Rect();
         paint.getTextBounds(gText, 0, gText.length(), bounds);
         int x = 0, y = 0;
-        switch (stampPosition) {
+        switch (trademarkPosition) {
             case CENTER:
                 x = (bitmap.getWidth() - bounds.width()) / 2;
                 y = (bitmap.getHeight() + bounds.height()) / 2;
@@ -183,6 +189,147 @@ public class BitmapManager {
                 break;
         }
         canvas.drawText(gText, x, y, paint);
+        return bitmap;
+    }
+
+    private static Bitmap getBitmapFromView(View view) {
+        Canvas c;
+        Bitmap b;
+        if (view.getMeasuredHeight() <= 0) {
+            int specWidth = View.MeasureSpec.makeMeasureSpec(500 /* any */, View.MeasureSpec.UNSPECIFIED);
+            int specHeight = View.MeasureSpec.makeMeasureSpec(300 /* any */, View.MeasureSpec.UNSPECIFIED);
+            Log.d(TAG, "getBitmapFromView>>specWidth: " + specWidth + " specHeight: " + specHeight);
+            view.measure(specWidth, specHeight);
+//            view.measure(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+            b = Bitmap.createBitmap(specWidth, specHeight, Bitmap.Config.ARGB_8888);
+            view.layout(0, 0, specWidth, specHeight);
+        } else {
+            b = Bitmap.createBitmap(view.getLayoutParams().width, view.getLayoutParams().height, Bitmap.Config.ARGB_8888);
+            view.layout(view.getLeft(), view.getTop(), view.getRight(), view.getBottom());
+        }
+        c = new Canvas(b);
+        view.draw(c);
+        return b;
+    }
+
+//    private static Bitmap createBitmapFromView(View view) {
+//        int spec = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED);
+//        view.measure(spec, spec);
+//        view.layout(0, 0, view.getMeasuredWidth(), view.getMeasuredHeight());
+//        Bitmap b = Bitmap.createBitmap(view.getMeasuredWidth(), view.getMeasuredHeight(), Bitmap.Config.ARGB_8888);
+//        Canvas c = new Canvas(b);
+//        c.translate((-view.getScrollX()), (-view.getScrollY()));
+//        view.draw(c);
+//        return b;
+//    }
+
+//    public static Bitmap getBitmapFromView(View view) {
+//        view.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED);
+//        Bitmap bitmap = Bitmap.createBitmap(view.getMeasuredWidth(), view.getMeasuredHeight(), Bitmap.Config.ARGB_8888);
+//        Canvas canvas = new Canvas(bitmap);
+//        view.layout(0, 0, view.getWidth(), view.getHeight());
+//        Log.d("", "combineImages: width: " + view.getWidth());
+//        Log.d("", "combineImages: height: " + view.getHeight());
+//        view.draw(canvas);
+//        return bitmap;
+//    }
+
+//    public static Bitmap getBitmapFromView(View view) {
+//        //Get the dimensions of the view so we can re-layout the view at its current size
+//        //and create a bitmap of the same size
+//        int width = view.getWidth();
+//        int height = view.getHeight();
+//
+//        int measuredWidth = View.MeasureSpec.makeMeasureSpec(width, View.MeasureSpec.EXACTLY);
+//        int measuredHeight = View.MeasureSpec.makeMeasureSpec(height, View.MeasureSpec.EXACTLY);
+//
+//        //Cause the view to re-layout
+//        view.measure(measuredWidth, measuredHeight);
+//        view.layout(0, 0, view.getMeasuredWidth(), view.getMeasuredHeight());
+//
+//        //Create a bitmap backed Canvas to draw the view into
+//        Bitmap b = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
+//        Canvas c = new Canvas(b);
+//
+//        //Now that the view is laid out and we have a canvas, ask the view to draw itself into the canvas
+//        view.draw(c);
+//
+//        return b;
+//    }
+
+    public static Bitmap addSeal(Context context, Bitmap bitmap, String name, String subName, SEAL_TYPE sealType, SEAL_POSITION sealPosition) {
+        View view = null;
+        if (sealType == SEAL_TYPE.RECTANGLE) {
+            view = LayoutInflater.from(context).inflate(R.layout.view_seal_rectangle, null);
+            RectangleSealView rectangleSealView = view.findViewById(R.id.rsv);
+            rectangleSealView.setLeftString(name);
+            rectangleSealView.setRightString(subName);
+        }
+
+        if (view != null) {
+            Log.d(TAG, "addSeal>>seal view is found");
+
+            if (bitmap != null) {
+                Log.d(TAG, "addSeal>>bitmap is found");
+                Bitmap.Config bitmapConfig = bitmap.getConfig();
+                if (bitmapConfig == null) {
+                    bitmapConfig = Bitmap.Config.ARGB_8888;
+                }
+                bitmap = bitmap.copy(bitmapConfig, true);
+                Canvas canvas = new Canvas(bitmap);
+
+                Bitmap sealBitmap = getBitmapFromView(view);
+                if (sealBitmap != null) {
+                    Log.d(TAG, "addSeal>>sealBitmap is found");
+                    int x = 0, y = 0;
+                    switch (sealPosition) {
+                        case CENTER:
+                            x = (bitmap.getWidth() - sealBitmap.getWidth()) / 2;
+                            y = (bitmap.getHeight() - sealBitmap.getHeight()) / 2;
+                            break;
+                        case RIGHT_BOTTOM:
+                            x = (bitmap.getWidth() - sealBitmap.getWidth());
+                            y = (bitmap.getHeight() - sealBitmap.getHeight());
+                            break;
+                        case LEFT_BOTTOM:
+                            x = 0;
+                            y = (bitmap.getHeight() - sealBitmap.getHeight());
+                            break;
+                        case BOTTOM_CENTER:
+                            x = (bitmap.getWidth() - sealBitmap.getWidth()) / 2;
+                            y = (bitmap.getHeight() - sealBitmap.getHeight());
+                            break;
+                        case TOP_CENTER:
+                            x = (bitmap.getWidth() - sealBitmap.getWidth()) / 2;
+                            y = 0;
+                            break;
+                        case LEFT_TOP:
+                            x = 0;
+                            y = 0;
+                            break;
+                        case LEFT_CENTER:
+                            x = 0;
+                            y = (bitmap.getHeight() - sealBitmap.getHeight()) / 2;
+                            break;
+                        case RIGHT_TOP:
+                            x = (bitmap.getWidth() - sealBitmap.getWidth());
+                            y = 0;
+                            break;
+                        case RIGHT_CENTER:
+                            x = (bitmap.getWidth() - sealBitmap.getWidth());
+                            y = (bitmap.getHeight() - sealBitmap.getHeight()) / 2;
+                            break;
+                    }
+                    canvas.drawBitmap(sealBitmap, x, y, null);
+                } else {
+                    Log.d(TAG, "addSeal>>sealBitmap is not found");
+                }
+            } else {
+                Log.d(TAG, "addSeal>>bitmap is not found");
+            }
+        } else {
+            Log.d(TAG, "addSeal>>seal view is not found");
+        }
         return bitmap;
     }
 
@@ -371,6 +518,7 @@ public class BitmapManager {
 
     /**
      * A one color image.
+     *
      * @param width
      * @param height
      * @param color
