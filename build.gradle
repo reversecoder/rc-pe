@@ -30,7 +30,7 @@ allprojects {
     ext.appMinSdkVersion = 15
     ext.appTargetSdkVersion = 30
     ext.appCompileSdkVersion = 30
-    ext.appBuildToolsVersion = '30.0.2'
+    ext.appBuildToolsVersion = '30.0.3'
     ext.androidXAppCompatVersion = '1.2.0'
     ext.materialVersion = '1.3.0'
     ext.androidXConstraintLayoutVersion = '2.0.4'

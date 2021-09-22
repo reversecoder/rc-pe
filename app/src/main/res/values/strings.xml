@@ -16,10 +16,10 @@
     <string name="app_intent_name">PhotoEditor</string>
     <string name="msg_save_image_to_share">Please save image to share</string>
     <string name="msg_share_image">Share Image</string>
-    <string name="text_default_water_mark">পিংনা, সরিষাবাড়ী, জামালপুর</string>
-    <string name="text_default_seal_name">পিংনা, সরিষাবাড়ী</string>
-    <string name="text_default_seal_name_with_comma">পিংনা, সরিষাবাড়ী,</string>
-    <string name="text_default_seal_sub_name">জামালপুর</string>
+    <string name="text_default_water_mark">জামালপুর, ময়মনসিংহ, বাংলাদেশ</string>
+    <string name="text_default_seal_name">জামালপুর, ময়মনসিংহ</string>
+    <string name="text_default_seal_name_with_comma">জামালপুর, ময়মনসিংহ,</string>
+    <string name="text_default_seal_sub_name">বাংলাদেশ</string>
     <string name="text_comma">,</string>
     <string name="text_default_trademark">MeembuSoft</string>
     <string name="text_done">Done</string>

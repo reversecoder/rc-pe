@@ -196,7 +196,7 @@ public class BitmapManager {
         Canvas c;
         Bitmap b;
         if (view.getMeasuredHeight() <= 0) {
-            int specWidth = View.MeasureSpec.makeMeasureSpec(500 /* any */, View.MeasureSpec.UNSPECIFIED);
+            int specWidth = View.MeasureSpec.makeMeasureSpec(510 /* any */, View.MeasureSpec.UNSPECIFIED);
             int specHeight = View.MeasureSpec.makeMeasureSpec(300 /* any */, View.MeasureSpec.UNSPECIFIED);
             Log.d(TAG, "getBitmapFromView>>specWidth: " + specWidth + " specHeight: " + specHeight);
             view.measure(specWidth, specHeight);
