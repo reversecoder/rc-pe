@@ -17,7 +17,7 @@ public class RectangleSealView extends AppCompatTextView {
     private int mRightSize = 50;
     private String mRightString;
     private String mLeftString;
-    private float mR = -20f;
+    private float mR = -30f;
 
     public RectangleSealView(Context context) {
         super(context);
