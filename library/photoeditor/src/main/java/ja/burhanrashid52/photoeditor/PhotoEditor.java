@@ -69,6 +69,7 @@ public class PhotoEditor implements BrushViewChangeListener {
     private Typeface mDefaultTextTypeface;
     private Typeface mDefaultEmojiTypeface;
     private int mShadeColor = 0;
+    private boolean isSealNeeded = false;
     private boolean isShadeApplied = false, isWatermarkApplied = false, isTrademarkApplied = false, isSealApplied = false;
     private String mWaterMark = "", mTrademark = "", mSealName = "", mSealSubName = "";
 
@@ -90,6 +91,14 @@ public class PhotoEditor implements BrushViewChangeListener {
         brushDrawingView.setBrushViewChangeListener(this);
         addedViews = new ArrayList<>();
         redoViews = new ArrayList<>();
+    }
+
+    public void toggleSealNeeded() {
+        isSealNeeded = !isSealNeeded;
+    }
+
+    public boolean isSealNeeded() {
+        return isSealNeeded;
     }
 
     /**
@@ -714,8 +723,8 @@ public class PhotoEditor implements BrushViewChangeListener {
                                     isTrademarkApplied = true;
                                 }
                                 // Seal
-                                if (!isSealApplied && !TextUtils.isEmpty(mSealName) && !TextUtils.isEmpty(mSealSubName)) {
-                                    updatedBitmap = BitmapManager.addSeal(context, ((updatedBitmap != null) ? updatedBitmap : drawingCache), mSealName, mSealSubName ,BitmapManager.SEAL_TYPE.RECTANGLE, BitmapManager.SEAL_POSITION.CENTER);
+                                if (isSealNeeded && !isSealApplied && !TextUtils.isEmpty(mSealName) && !TextUtils.isEmpty(mSealSubName)) {
+                                    updatedBitmap = BitmapManager.addSeal(context, ((updatedBitmap != null) ? updatedBitmap : drawingCache), mSealName, mSealSubName, BitmapManager.SEAL_TYPE.RECTANGLE, BitmapManager.SEAL_POSITION.CENTER);
                                     isSealApplied = true;
                                 }
                                 // Write image

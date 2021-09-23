@@ -36,7 +36,7 @@ public class EditingToolsAdapter extends RecyclerView.Adapter<EditingToolsAdapte
         mToolList.add(new ToolModel(ToolType.SHADE, R.drawable.ic_shade));
         mToolList.add(new ToolModel(ToolType.WATERMARK, R.drawable.ic_watermark));
         mToolList.add(new ToolModel(ToolType.TRADEMARK, R.drawable.ic_trademark_round));
-        mToolList.add(new ToolModel(ToolType.SEAL, R.drawable.ic_seal));
+        mToolList.add(new ToolModel(ToolType.SEAL, R.drawable.ic_seal_deselected));
         mToolList.add(new ToolModel(ToolType.EMOJI, R.drawable.ic_insert_emoticon));
         mToolList.add(new ToolModel(ToolType.STICKER, R.drawable.ic_sticker));
     }
@@ -72,7 +72,7 @@ public class EditingToolsAdapter extends RecyclerView.Adapter<EditingToolsAdapte
     private ToolModel getTool(ToolType toolType) {
         if (mToolList.size() > 0) {
             for (ToolModel toolModel : mToolList) {
-                if (toolModel.mToolType == toolType) {
+                if (toolModel.getToolType() == toolType) {
                     return toolModel;
                 }
             }
@@ -83,7 +83,7 @@ public class EditingToolsAdapter extends RecyclerView.Adapter<EditingToolsAdapte
     private int getToolPosition(ToolType toolType) {
         if (mToolList.size() > 0) {
             for (int i = 0; i < mToolList.size(); i++) {
-                if (mToolList.get(i).mToolType == toolType) {
+                if (mToolList.get(i).getToolType() == toolType) {
                     return i;
                 }
             }
@@ -91,20 +91,13 @@ public class EditingToolsAdapter extends RecyclerView.Adapter<EditingToolsAdapte
         return -1;
     }
 
-    public interface OnItemSelected {
-        void onToolSelected(ToolType toolType);
+    public void updateToolView(ToolModel toolModel) {
+        getTool(toolModel.getToolType()).setToolModel(toolModel);
+        notifyDataSetChanged();
     }
 
-    class ToolModel {
-        private String mToolName;
-        private int mToolIcon;
-        private ToolType mToolType;
-
-        ToolModel(ToolType toolType, int toolIcon) {
-            mToolName = toolType.getToolName();
-            mToolIcon = toolIcon;
-            mToolType = toolType;
-        }
+    public interface OnItemSelected {
+        void onToolSelected(ToolType toolType);
     }
 
     @NonNull
@@ -118,8 +111,8 @@ public class EditingToolsAdapter extends RecyclerView.Adapter<EditingToolsAdapte
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         ToolModel item = mToolList.get(position);
-        holder.txtTool.setText(item.mToolName);
-        holder.imgToolIcon.setImageResource(item.mToolIcon);
+        holder.txtTool.setText(item.getToolName());
+        holder.imgToolIcon.setImageResource(item.getToolIcon());
     }
 
     @Override
@@ -138,7 +131,7 @@ public class EditingToolsAdapter extends RecyclerView.Adapter<EditingToolsAdapte
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    mOnItemSelected.onToolSelected(mToolList.get(getLayoutPosition()).mToolType);
+                    mOnItemSelected.onToolSelected(mToolList.get(getLayoutPosition()).getToolType());
                 }
             });
         }

@@ -43,6 +43,7 @@ import com.meembusoft.photoeditor.filters.FilterListener;
 import com.meembusoft.photoeditor.filters.FilterViewAdapter;
 import com.meembusoft.photoeditor.tools.EditingToolsAdapter;
 import com.meembusoft.photoeditor.tools.PickerType;
+import com.meembusoft.photoeditor.tools.ToolModel;
 import com.meembusoft.photoeditor.tools.ToolType;
 import com.meembusoft.photoeditor.util.AppUtil;
 import com.meembusoft.photoeditor.util.BuilderManager;
@@ -558,8 +559,18 @@ public class EditImageActivity extends BaseActivity implements OnPhotoEditorList
                 Toast.makeText(EditImageActivity.this, "Coming soon", Toast.LENGTH_SHORT).show();
                 break;
             case SEAL:
-                Toast.makeText(EditImageActivity.this, "Coming soon", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(EditImageActivity.this, "Coming soon", Toast.LENGTH_SHORT).show();
 //                mTxtCurrentTool.setText(R.string.label_seal);
+                mPhotoEditor.toggleSealNeeded();
+                int drawableIcon;
+                if (mPhotoEditor.isSealNeeded()) {
+                    drawableIcon = R.drawable.ic_seal_selected;
+                    mTxtCurrentTool.setText(R.string.label_seal);
+                } else {
+                    drawableIcon = R.drawable.ic_seal_deselected;
+                    mTxtCurrentTool.setText(R.string.app_name);
+                }
+                mEditingToolsAdapter.updateToolView(new ToolModel(ToolType.SEAL, drawableIcon));
                 break;
             case EMOJI:
                 mEmojiBSFragment.show(getSupportFragmentManager(), mEmojiBSFragment.getTag());
